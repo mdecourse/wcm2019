@@ -1,5 +1,8 @@
 <h1>Introduction</h1>
 <p>機械設計工程系暨精密機械工程科 2019 Spring 網際內容管理課程 (Introduction to Web Content Management Systems Site Development)</p>
+<p>倉儲: <a href="https://github.com/mdecourse/wcm2019">https://github.com/mdecourse/wcm2019</a></p>
+<p>靜態網頁: <a href="https://mde.tw/wcm2019">https://mde.tw/wcm2019</a> </p>
+<p>動態網頁: <a href="https://wcm2019.herokuapp.com">https://wcm2019.herokuapp.com</a> </p>
 <h4>107學年教育目標:</h4>
 <p>本課程延續五專部計算機概論與四技部計算機程式之教學內容, 探討網際內容管理系統 - <a href="https://github.com/chiamingyen/cmsimfly">CMSimfly</a>  之使用及後續應用.</p>
 <h4>107-2學期教育目標:</h4>
@@ -178,6 +181,9 @@ EXIT</pre>
 <p style="padding-left: 30px;">Python 2 and 3 Compatibility - With Six and Python-Future Libraries</p>
 <p style="padding-left: 30px;"><a href="https://link.springer.com/book/10.1007/978-1-4842-2955-2">https://link.springer.com/book/10.1007/978-1-4842-2955-2</a> </p>
 <h4>Flask 網際框架</h4>
+<p style="padding-left: 30px;">Framework (框架)  - 預先配置使用方法、模組與標準化架構的程式組合,  讓開發者可以快速完成特定工作.</p>
+<p style="padding-left: 30px;">Flask 則屬於建構網站用之伺服器後端 (Back-end) 的 Python 程式框架</p>
+<p style="padding-left: 30px;">另外有包含<a href="https://en.wikipedia.org/wiki/Cascading_Style_Sheets"> CSS</a> 與 Javascript, 屬於建構網站用之前端 (Front-end) 程式框架, 例如: <a href="https://jquery.com/">Jquery</a>.</p>
 <p style="padding-left: 30px;"><a href="http://flask.pocoo.org/">http://flask.pocoo.org/</a> </p>
 <h4>Leo Editor 管理系統</h4>
 <p style="padding-left: 30px;"><a href="http://leoeditor.com/">http://leoeditor.com/</a> </p><h2>Ubuntu</h2>
@@ -189,9 +195,17 @@ EXIT</pre>
 <p style="padding-left: 30px;">sudo pip install flask</p>
 <h4>Leo Editor 管理系統</h4>
 <p style="padding-left: 30px;">sudo pip install leo</p><h1>CMSimfly 安裝</h1>
-<p></p>
-<h2>Github</h2>
-<p><a href="https://github.com/chiamingyen/cmsimfly">https://github.com/chiamingyen/cmsimfly</a> </p><h2>Heroku</h2>
+<p>Windows 10 執行 (近端內容編輯)</p>
+<p style="padding-left: 30px;">python wsgi.py</p>
+<p>Github</p>
+<p style="padding-left: 30px;">利用 Github Pages 伺服 <a href="https://github.com/chiamingyen/cmsimfly">CMSimfly</a> 的靜態網頁系統</p>
+<p>Heroku</p>
+<p style="padding-left: 30px;">利用 Python 執行 <a href="https://github.com/chiamingyen/cmsimfly">CMSimfly</a> 的動態網頁系統</p>
+<p>Ubuntu 自架主機</p>
+<p style="padding-left: 30px;">採用 <a href="https://uwsgi-docs.readthedocs.io/en/latest/">uwsgi</a> 執行</p>
+<p></p><h2>Github</h2>
+<p><a href="https://github.com/chiamingyen/cmsimfly">https://github.com/chiamingyen/cmsimfly</a> </p>
+<p>利用 <a href="https://pages.github.com/">Github Pages</a> 伺服靜態網頁系統</p><h2>Heroku</h2>
 <p><a href="https://www.heroku.com/">https://www.heroku.com/</a> </p><h2>自架主機</h2>
 <h4>Ubuntu under Virtualbox</h4>
 <h1>CMSimfly 開發</h1>
@@ -206,7 +220,20 @@ EXIT</pre>
 <p style="padding-left: 30px;"><a href="http://flask.pocoo.org/docs/1.0/tutorial/templates/">http://flask.pocoo.org/docs/1.0/tutorial/templates/</a> </p>
 <p>extensions</p>
 <p style="padding-left: 30px;"><a href="http://flask.pocoo.org/extensions/">http://flask.pocoo.org/extensions/</a> </p>
-<h1>參考資料</h1>
+<h2>Front-end</h2>
+<p><a href="https://getbootstrap.com/">https://getbootstrap.com/</a> </p>
+<p>Foundation Website Creation with CSS, XHTML, and JavaScript</p>
+<p><a href="https://link.springer.com/content/pdf/10.1007%2F978-1-4302-0992-8.pdf">https://link.springer.com/content/pdf/10.1007%2F978-1-4302-0992-8.pdf</a> </p>
+<p>Pro HTML5 with CSS, JavaScript, and Multimedia</p>
+<p><a href="https://link.springer.com/content/pdf/10.1007%2F978-1-4842-2463-2.pdf">https://link.springer.com/content/pdf/10.1007%2F978-1-4842-2463-2.pdf</a> </p>
+<p>Getting StartED with CSS</p>
+<p><a href="https://link.springer.com/content/pdf/10.1007%2F978-1-4302-2544-7.pdf">https://link.springer.com/content/pdf/10.1007%2F978-1-4302-2544-7.pdf</a> </p>
+<p>CSS Mastery</p>
+<p><a href="https://link.springer.com/content/pdf/10.1007%2F978-1-4302-5864-3.pdf">https://link.springer.com/content/pdf/10.1007%2F978-1-4302-5864-3.pdf</a> </p>
+<p>CSS Quick Syntax Reference Guide</p>
+<p><a href="https://link.springer.com/content/pdf/10.1007%2F978-1-4302-6491-0.pdf">https://link.springer.com/content/pdf/10.1007%2F978-1-4302-6491-0.pdf</a> </p>
+<p>AdvancED CSS</p>
+<p><a href="https://link.springer.com/content/pdf/10.1007%2F978-1-4302-1933-0.pdf">https://link.springer.com/content/pdf/10.1007%2F978-1-4302-1933-0.pdf</a> </p><h1>參考資料</h1>
 <p><a href="/downloads/2013_PhD_Development of CMS-based Web Applications with a Multi-Language Model-Driven Approach.pdf">Development of CMS-based Web Applications with a Multi-Language Model-Driven Approach.pdf</a> (2013 Ph.D. Dissertation)</p>
 <h4>Building a Web Content Management System (2012 M.S. thesis)</h4>
 <p><a href="https://sdsu-dspace.calstate.edu/bitstream/handle/10211.10/3228/Shah_Rima.pdf">https://sdsu-dspace.calstate.edu/bitstream/handle/10211.10/3228/Shah_Rima.pdf</a> (local download)</p>
