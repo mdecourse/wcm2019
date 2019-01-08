@@ -1,0 +1,208 @@
+<h1>Introduction</h1>
+<p>機械設計工程系 2019 Spring 網際內容管理課程 (Introduction to Web Content Management Systems Site Development)</p>
+<h4>107學年教育目標:</h4>
+<p>本課程延續計算機概論之教學內容, 探討自行開發的開源網際內容管理系統 - <a href="https://github.com/chiamingyen/cmsimfly">CMSimfly</a>  之使用及後續應用.</p>
+<h4>107-2學期教育目標:</h4>
+<p>從 Intel-based 電腦硬體的組裝、安裝操作系統、配置網路連線到設定 <a href="https://github.com/chiamingyen/cmsimfly">CMSimfly</a> , 引導學員學習如何運用電腦與網路系統, 自行架構符合機械協同設計流程使用之網際內容管理伺服系統.</p>
+<h4>達成學期教育目標之評量方式與標準:</h4>
+<p>評分比例:</p>
+<p style="padding-left: 30px;">學員出席 (20%)</p>
+<p style="padding-left: 30px;">電腦組裝與操作系統安裝 (10%)</p>
+<p style="padding-left: 30px;">網路連線配置與設定  (10%)</p>
+<p style="padding-left: 30px;">Github 倉儲與 CMSimfly 配置 (30%)</p>
+<p style="padding-left: 30px;">CMSimfly 操作 (20%)</p>
+<p style="padding-left: 30px;">CMSimfly 開發 (10%)</p>
+<p>評分方式:</p>
+<p style="padding-left: 30px;">學員自我評量<span> (30%)</span></p>
+<p style="padding-left: 30px;">分組自我評量 (30%)</p>
+<p style="padding-left: 30px;">倉儲歷程查驗 (40%)</p>
+<p>教學方式:</p>
+<p style="padding-left: 30px;">課堂講授</p>
+<p style="padding-left: 30px;">操作錄影</p>
+<p style="padding-left: 30px;">學員實習</p>
+<p style="padding-left: 30px;">分組報告</p><h1>電腦安裝</h1>
+<h4>電腦硬體</h4>
+<p><a href="/downloads/Computer_Overview_and_hardware.pdf">computer overview and hardware.pdf</a></p>
+<p>(<a href="https://www.cs.auckland.ac.nz/compsci111ssc/lectures/LectureSlides/">https://www.cs.auckland.ac.nz/compsci111ssc/lectures/LectureSlides/</a>)</p>
+<h4>Computer 硬體</h4>
+<p><img alt="" height="248" src="/images/computer_hardware.png" width="600"/></p>
+<h4>Personal Computer 類別</h4>
+<p><img alt="" height="262" src="/images/computer_types.png" width="600"/></p>
+<h4>機架式(rack)電腦伺服器</h4>
+<p><img alt="" height="334" src="/images/rack_server.png" width="600"/></p>
+<h4>UPS (Uninterruptible Power Supply) 不斷電系統</h4>
+<p><img alt="" height="450" src="/images/APC_smart_ups.jpg" width="600"/></p>
+<h4>Motherboard 主機板</h4>
+<p><img alt="" height="395" src="/images/motherboard.png" width="600"/></p>
+<h4>PCI (<span>Peripheral Component Interconnect)</span>網路卡</h4>
+<p><img alt="" height="320" src="/images/Ethernet_NIC_100Mbit_PCI.jpg" width="600"/></p>
+<h4>Power Supply 電源供應器</h4>
+<p><img alt="" height="466" src="/images/power_supply.jpg" width="466"/></p>
+<h4>個人桌上型電腦內部</h4>
+<p><img alt="" height="358" src="/images/inside_desktop.png" width="600"/></p>
+<h4>筆記型電腦內部</h4>
+<p><img alt="" height="320" src="/images/insite_laptop.png" width="600"/></p>
+<h4>操作系統</h4>
+<p>Windows 10</p>
+<p><a href="https://www.microsoft.com/zh-tw/software-download/windows10">https://www.microsoft.com/zh-tw/software-download/windows10</a> </p>
+<p>Ubuntu</p>
+<p><a href="https://www.ubuntu.com/download">https://www.ubuntu.com/download</a> </p>
+<p>Virtualbox</p>
+<p><a href="https://www.virtualbox.org/">https://www.virtualbox.org/</a> </p><h2>網路配置</h2>
+<h4>網路連線</h4>
+<p>實體連線</p>
+<p style="padding-left: 30px;"><a href="https://en.wikipedia.org/wiki/Category_6_cable">https://en.wikipedia.org/wiki/Category_6_cable</a> </p>
+<p>無線網路</p>
+<p style="padding-left: 30px;"><a href="https://en.wikipedia.org/wiki/Wi-Fi">https://en.wikipedia.org/wiki/Wi-Fi</a> </p>
+<h4>網路設定</h4>
+<p>TCP</p>
+<p style="padding-left: 30px;"><a href="https://en.wikipedia.org/wiki/Transmission_Control_Protocol">https://en.wikipedia.org/wiki/Transmission_Control_Protocol</a> </p>
+<p>IP</p>
+<p style="padding-left: 30px;"><a href="https://en.wikipedia.org/wiki/Internet_Protocol">https://en.wikipedia.org/wiki/Internet_Protocol</a> </p>
+<p></p>
+<p>機械設計網路架構</p>
+<p style="padding-left: 30px;">IP addresses</p>
+<p style="padding-left: 30px;">DNS Servers</p>
+<p style="padding-left: 30px;">Proxy Servers</p>
+<p style="padding-left: 30px;">網路線配置</p>
+<h4></h4><h1>程式開發環境</h1>
+<p><span>可攜 Python 系統: </span><a href="https://drive.google.com/open?id=1qSnGb4NBmfGG0jGVNfQJX_9TNVweIdFW">p37-18.12.7z</a><span> (下載解開壓縮檔案後, 以 start.bat 啟動後即可使用) </span></p>
+<h4>啟動批次檔案</h4>
+<p>start.bat</p>
+<pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false">@echo off
+REM 設定 y 硬碟代號與 data 目錄對應
+set Disk=y
+subst %Disk%: "data"
+REM 設定 leo 相關對應 Home 位置
+set HomePath=%Disk%:\home_cadlab
+set HomeDrive=%Disk%:\home_cadlab
+set Home=%Disk%:\home_cadlab
+REM 將系統 Python 程式的 io 設為 utf-8
+set PYTHONIOENCODING="utf-8"
+REM 將後續的指令執行, 以 %Disk% 為主
+%Disk%:
+REM 設定 PYTHONPATH
+set PYTHONPATH=%Disk%:\p37\DLLs;%Disk%:\p37\Lib;%Disk%:\p37\Lib\site-packages;
+set PYTHONHOME=%Disk%:\p37
+REM for Qt and Qt Creator
+set LLVM_INSTALL_DIR=%Disk%:\LLVM;
+set QBS_INSTALL_DIR=%Disk%:\qbs-windows-x86_64-1.10.0;
+REM for TCL
+set TCL_LIBRARY=%Disk%:\p37\tcl\tcl8.6
+set TK_LIBRARY=%Disk%:\p37\tcl\tcl8.6
+REM 設定 Leo 所用的編輯器
+set LEO_EDITOR=%Disk%:\scite\bin\Sc1.exe;
+set BOOST_ROOT=%Disk%:\boost_1_66_0\;
+REM set CMAKE_PREFIX_PATH=%Disk%:\msys64\mingw64\
+REM for fossil https 連線設定
+REM 若在近端使用 fossil ui 則要蓋掉
+REM set HTTPS=on
+REM 指令搜尋路徑設定
+REM set path1=%PATH%;%Disk%:;%Disk%:\p37;%Disk%:\git\bin;%Disk%:\stunnel\bin;%Disk%:\sqlite-tools;%Disk%:\p37\Scripts;%Disk%:\Git\bin;%Disk%:\vrep331;
+REM path1 is base of this portable Python3.6 system
+set path1=%Disk%:;%Disk%:\p37;%Disk%:\git\bin;%Disk%:\stunnel\bin;%Disk%:\sqlite-tools;%Disk%:\p37\Scripts;%Disk%:\Git\bin;%Disk%:\vrep331;%Disk%:\p37\Lib\site-packages\PyQt5\Qt\bin;
+REM path2 is for pandoc and miktex
+set path2=%Disk%:\pandoc-2.0.2;%Disk%:\miktex_portable\texmfs\install\miktex\bin;%Disk%:\lua-5.3.4\bin;%Disk%:\coreutils-5.3.0\bin;%Disk%:\qtcreator-4.7.0-rc1\bin;%Disk%:\patch-2.5.9-7-bin\bin;
+REM path3 is for gcc development 
+set path3=%Disk%:\msys64\mingw64\bin;%Disk%:\swigwin-3.0.12;%Disk%:\cmake-3.10.1-win64-x64\bin;%Disk%:\diffutils-2.8.7-1\bin;%Disk%:\patch-2.5.9-7\bin;%Disk%:\graphviz-2.38\bin;
+set path4=%Disk%:\boost_1_66_0\;%Disk%:\Strawberry\perl\bin;%D%:\jom_1_1_2;%Disk%:\LLVM\bin;%Disk%:\QtCreator\bin;%Disk%:\vrep340_rev1;%Disk%:\p37\tcl\tcl8.6;%Disk%:\xsltproc;
+set path5=%Disk%:\ffmpeg-20180504-dc7a8f7-win64-static\bin;%Disk%:\oce-0.18.1\bin\;%Disk%:\oce-0.18.1\lib\;%Disk%:\gnuplot\bin;
+set JAVA_HOME=%Disk%:\Java\jdk1.8.0_172;
+set ANDROID_HOME=%Disk%:\Android\sdk;
+set path6=%Disk%:\Java\jdk1.8.0_172\bin;%Disk%:\Java\jre1.8.0_172\bin;%Disk%:\Android\AndroidStudio\bin;%Disk%:\Android\sdk\tools;%Disk%:\Android\sdk\platform-tools;%Disk%:\BIND9.12.2-P2.x64;%Disk%:\heroku\bin;
+set path7=%Disk%:\pandoc-2.4-windows-x86_64;%Disk%:\miktex_portable\texmfs\install\miktex\bin;%Disk%:\wget-1.11.4-1-bin\bin;%Disk%:\openssl-0.9.8h-1-bin\bin;
+REM for Pythonocc under MSYS2 according to https://groups.google.com/forum/?utm_medium=email&amp;utm_source=footer#!msg/pythonocc/z-NI9A-Vyic/8QjD81q-AwAJ
+set CSF_GraphicShr=%Disk%:\oce-0.18.1\bin\TKOpenGl.dll
+path=%path%;%path1%;%path2%;%path3%;%path4%;%path5%;%path6%;%path7%;%Disk%:\p37\site-packages\scipy\extra_dll;%Disk%:\scite\bin;
+start /MIN %Disk%:\scite\bin\Sc1.exe
+start /MIN %Disk%:\scite\bin\Sc1.exe
+start /MIN cmd.exe
+start /MIN cmd.exe
+REM start /MIN cmd.exe /k "y:\cp2018.bat"
+REM start /MIN cmd.exe /k "y:\cp2018_http_server.bat
+REM start /MIN cmd.exe /k "y:\cadp2018.bat"
+REM 啟動 Leo 編輯器
+%Disk%:\p37\python.exe %Disk%:\launchLeo.py
+REM 啟動 stunnel
+REM start /MIN fossil.exe server -P 127.0.0.1:8080 %Disk%:\tmp\fossil_repo
+REM start /MIN stunnel.exe
+REM start qtcreator
+Exit</pre>
+<p>stop.bat</p>
+<pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false">@echo off
+set Disk=y
+REM 關閉 SciTE
+taskkill /IM Sc1.exe /F
+REM 關閉 python
+taskkill /IM python.exe /F
+taskkill /IM pythonw.exe /F
+REM 關閉 stunnel
+taskkill /IM stunnel.exe /F
+REM 關閉 fossil
+taskkill /IM fossil.exe /F
+rem taskkill /IM sharex.exe /F
+REM 清除 log 資料
+path=%PATH%;
+REM del /Q /F  V:\tmp\*.*
+REM 終止虛擬硬碟與目錄的對應
+subst %Disk%: /D
+REM 關閉 cmd 指令視窗
+taskkill /IM cmd.exe /F
+REM taskkill /IM mingw32 /F
+EXIT</pre>
+<h4>SciTE</h4>
+<p style="padding-left: 30px;"><a href="https://www.scintilla.org/SciTE.html">https://www.scintilla.org/SciTE.html</a> </p>
+<h4>Git</h4>
+<p style="padding-left: 30px;"><a href="https://git-scm.com/download/win">https://git-scm.com/download/win</a> </p>
+<h4>Heroku cli</h4>
+<p style="padding-left: 30px;"><a href="/downloads/heroku_kmol.7z">heroku_kmol.7z</a></p>
+<h4>Python</h4>
+<p style="padding-left: 30px;"><a href="https://www.python.org/">https://www.python.org/</a> </p>
+<h4>Leo Editor</h4>
+<p style="padding-left: 30px;"><a href="http://leoeditor.com/">http://leoeditor.com/</a> </p><h2>Windows 10</h2>
+<h4>Windows 批次檔</h4>
+<p style="padding-left: 30px;"><a href="/downloads/batch_script_tutorial.pdf">ref1.pdf</a></p>
+<p style="padding-left: 30px;"><a href="/downloads/Windows_Command_Line_Vic_Laurie.pdf">ref2.pdf</a></p>
+<p style="padding-left: 30px;"><a href="/downloads/Microsoft_Windows_7_In_Depth_CH29.pdf">ref3.pdf</a></p>
+<h4>Git</h4>
+<p style="padding-left: 30px;"><a href="https://git-scm.com/book/zh-tw/v2">https://git-scm.com/book/zh-tw/v2</a> </p>
+<h4>Python 程式環境</h4>
+<p style="padding-left: 30px;">Learn to Program with Python 3 - A Step-by-Step Guide to Programming</p>
+<p style="padding-left: 30px;"><a href="https://link.springer.com/book/10.1007/978-1-4842-3879-0">https://link.springer.com/book/10.1007/978-1-4842-3879-0</a> </p>
+<p style="padding-left: 30px;">Beginning Python - From Novice to Professional</p>
+<p style="padding-left: 30px;"><a href="https://link.springer.com/book/10.1007/978-1-4842-0028-5">https://link.springer.com/book/10.1007/978-1-4842-0028-5</a> </p>
+<p style="padding-left: 30px;">Programming with Python</p>
+<p style="padding-left: 30px;"><a href="https://link.springer.com/book/10.1007/978-981-10-3277-6">https://link.springer.com/book/10.1007/978-981-10-3277-6</a> </p>
+<p style="padding-left: 30px;">Python Recipes Handbook - A Problem-Solution Approach</p>
+<p style="padding-left: 30px;"><a href="https://link.springer.com/book/10.1007/978-1-4842-0241-8">https://link.springer.com/book/10.1007/978-1-4842-0241-8</a> </p>
+<p style="padding-left: 30px;">Python 2 and 3 Compatibility - With Six and Python-Future Libraries</p>
+<p style="padding-left: 30px;"><a href="https://link.springer.com/book/10.1007/978-1-4842-2955-2">https://link.springer.com/book/10.1007/978-1-4842-2955-2</a> </p>
+<h4>Flask 網際框架</h4>
+<p style="padding-left: 30px;"><a href="http://flask.pocoo.org/">http://flask.pocoo.org/</a> </p>
+<h4>Leo Editor 管理系統</h4>
+<p style="padding-left: 30px;"><a href="http://leoeditor.com/">http://leoeditor.com/</a> </p><h2>Ubuntu</h2>
+<h4>Git</h4>
+<p style="padding-left: 30px;">sudo apt install git</p>
+<h4>Python 程式環境</h4>
+<p style="padding-left: 30px;"><a href="https://pythonclock.org/">https://pythonclock.org/</a> </p>
+<h4>Flask 網際框架</h4>
+<p style="padding-left: 30px;">sudo pip install flask</p>
+<h4>Leo Editor 管理系統</h4>
+<p style="padding-left: 30px;">sudo pip install leo</p><h1>CMSimfly 安裝</h1>
+<p></p>
+<h2>Github</h2>
+<p><a href="https://github.com/chiamingyen/cmsimfly">https://github.com/chiamingyen/cmsimfly</a> </p><h2>Heroku</h2>
+<p><a href="https://www.heroku.com/">https://www.heroku.com/</a> </p><h2>自架主機</h2>
+<h4>Ubuntu under Virtualbox</h4>
+<h1>CMSimfly 開發</h1>
+<p>線上程式環境</p>
+<p style="padding-left: 30px;">Javascript</p>
+<p style="padding-left: 60px;"><a href="https://www.javascript.com/">https://www.javascript.com/</a> </p>
+<p style="padding-left: 30px;">Brython</p>
+<p style="padding-left: 60px;"><a href="https://brython.info/">https://brython.info/</a>　</p>
+<p style="padding-left: 30px;">Lua</p>
+<p style="padding-left: 60px;"><a href="https://github.com/fengari-lua/fengari-web">https://github.com/fengari-lua/fengari-web</a> </p>
+<p>templates</p>
+<p style="padding-left: 30px;"><a href="http://flask.pocoo.org/docs/1.0/tutorial/templates/">http://flask.pocoo.org/docs/1.0/tutorial/templates/</a> </p>
+<p>extensions</p>
+<p style="padding-left: 30px;"><a href="http://flask.pocoo.org/extensions/">http://flask.pocoo.org/extensions/</a> </p>
