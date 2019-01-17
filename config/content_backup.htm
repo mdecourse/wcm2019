@@ -56,12 +56,21 @@
 <p>上列描述的只是 MCAD (Mechanical Computer Aided Design) 套件的一小部分, 電腦輔助機械設計除了基本零組件的 2D/3D 外型繪製與組立外, 還有 2D/3D 機構的模擬分析與合成 (例如: <a href="https://www.artas.nl/en/">SAM</a> 與 <a href="https://github.com/KmolYuan/Pyslvs-UI">Pyslvs</a>), 還有進行強度分析的各種 CAE, 以及 CAM, 可見與機械設計相關的程式設計, 並沒有想像中單純, 而這些分析與模擬套件, 還未納入與控制系統設計相關的軟體.</p>
 <p>因此, 想要單單以一門計算機程式, 來培養有能力開發電腦程式進行機械設計, 是遠遠不夠, 更別提在目前網路通訊及多核運算晶片的快速發展下, 電腦軟硬體的整合發展已經逐步將單機執行的軟體套件, 帶往能夠多人即時協同的網際程式環境, 此一發展更大大提高初學者的進入門檻.</p>
 <h4>機械計算機程式設計</h4>
-<p><a href="https://www.engineering.com/DesignSoftware/DesignSoftwareArticles/ArticleID/16985/First-Look-Onshape-Enterprise.aspx">https://www.engineering.com/DesignSoftware/DesignSoftwareArticles/ArticleID/16985/First-Look-Onshape-Enterprise.aspx</a> </p>
+<p>從許多 CAD/E/M 都是利用 C++ 編寫的角度來看, 計算機程式教學從 C++ 入手似乎是個不錯的開始, 只是 C++ 程式需要編譯, 使用上較為繁瑣, 而且若從 Windows 10 的開發環境中學習 C++, 在不使用 Visual Studio 的前提下 (Why? tl;dr, 因為可以使用更簡便的 <a href="https://www.msys2.org/">MSYS2</a> 環境).</p>
+<p>相對較好的建議是從 Python 及 Lua 入手,  使用 Python 結合 <a href="https://github.com/mottosso/Qt.py">https://github.com/mottosso/Qt.py</a> 網羅 Github 現有的許多 PyQt4, PyQt5 或 Pyside2 的程式, 用來建立單機介面, 然後在編寫機械相關運算核心程式庫的同時, 設法利用 <a href="https://cython.org/">cython</a>,  熟悉 Python 與 C/C++ 之間的關係, 當然最佳情況下, 可以快速以 Python 編寫 <a href="https://cython.org/">cython</a> 碼, 然後再設法編譯為 C/C++ 程式碼後編譯成動態程式庫, 由 GUI介面呼叫使用.</p>
+<p>當然, 長遠來看 <a href="https://www.engineering.com/DesignSoftware/DesignSoftwareArticles/ArticleID/16985/First-Look-Onshape-Enterprise.aspx">https://www.engineering.com/DesignSoftware/DesignSoftwareArticles/ArticleID/16985/First-Look-Onshape-Enterprise.aspx</a>  勢必主宰全球機械協同設計流程, 只是經由各種老舊技術設計的產品及流程, 或許仍會永遠存在.  不同階段踏出社會的機械設計工程師們, 仍舊必須不斷面對挑戰, 然後做出決定: 到底是停在當下, 還是繼續跟著浪潮走.</p>
+<p>停在當下, 可能面臨淘汰</p>
+<p>而想跟著浪潮走, 茫茫大海, 哪裡才是方向?</p>
+<p>從 <a href="https://en.wikipedia.org/wiki/SQLite">SQLite</a> 與 <a href="https://en.wikipedia.org/wiki/Fossil_(software)">Fossil SCM</a> 的開發歷程來看, 在計算機程式領域, 能夠給機械設計工程師最好的建議是:</p>
+<h4>眼光要放遠, 但是要確定腳是踏在堅實的地上.</h4>
+<h4>單機程式</h4>
+<p style="padding-left: 30px;"><a href="https://build-system.fman.io/pyqt5-tutorial">https://build-system.fman.io/pyqt5-tutorial</a> </p>
 <h4>網際程式</h4>
 <p style="padding-left: 30px;"><a href="https://www.codefellows.org/courses/code-101/intro-to-software-development-and-careers-in-tech/">https://www.codefellows.org/courses/code-101/intro-to-software-development-and-careers-in-tech/</a> </p>
 <p style="padding-left: 30px;"><a href="https://www.codefellows.org/courses/code-201/foundations-of-software-development/">https://www.codefellows.org/courses/code-201/foundations-of-software-development/</a> </p>
 <p style="padding-left: 30px;"><a href="https://www.codefellows.org/courses/code-301/intermediate-software-development/">https://www.codefellows.org/courses/code-301/intermediate-software-development/</a> </p>
 <p style="padding-left: 30px;"><a href="https://www.codefellows.org/courses/code-401/advanced-software-development-in-python/">https://www.codefellows.org/courses/code-401/advanced-software-development-in-python/</a> </p>
+<p style="padding-left: 30px;">Gear Sketch: <a href="http://mde.tw/2017springcd/GearSketch/index.html">http://mde.tw/2017springcd/GearSketch/index.html</a> </p>
 <p></p><h2>全球協同</h2>
 <p>網路的普及促成全球協同, 分散式版次管理工具(例如: <a href="https://git-scm.com/">Git</a>、<a href="https://www.mercurial-scm.org/">Mercurial</a>、<a href="https://www.fossil-scm.org">Fossil SCM </a>等)則提供協同者明確清楚的運作模式, 至於 <a href="https://github.com/">Github</a> 與 <a href="https://about.gitlab.com/pricing/">Gitlab</a> 等分散式版次伺服代管服務系統, 更大幅催化各種程式系統的開發速度.</p>
 <p>網路 - 連接全球客戶端與伺服器端電腦</p>
@@ -189,7 +198,8 @@
 <p style="padding-left: 30px;">DNS Servers</p>
 <p style="padding-left: 30px;">Proxy Servers</p>
 <p style="padding-left: 30px;">網路線配置</p>
-<h4></h4><h1>程式開發環境</h1>
+<h3>Proxy Server</h3>
+<p></p><h1>程式開發環境</h1>
 <p><span>可攜 Python 系統: </span><a href="https://drive.google.com/open?id=1qSnGb4NBmfGG0jGVNfQJX_9TNVweIdFW">p37-18.12.7z</a><span> (下載解開壓縮檔案後, 以 start.bat 啟動後即可使用) </span></p>
 <h4>啟動批次檔案</h4>
 <p>start.bat</p>
@@ -363,10 +373,105 @@ EXIT</pre>
 <p>CSS Quick Syntax Reference Guide</p>
 <p><a href="https://link.springer.com/content/pdf/10.1007%2F978-1-4302-6491-0.pdf">https://link.springer.com/content/pdf/10.1007%2F978-1-4302-6491-0.pdf</a> </p>
 <p>AdvancED CSS</p>
-<p><a href="https://link.springer.com/content/pdf/10.1007%2F978-1-4302-1933-0.pdf">https://link.springer.com/content/pdf/10.1007%2F978-1-4302-1933-0.pdf</a> </p><h1>Wagtail</h1>
+<p><a href="https://link.springer.com/content/pdf/10.1007%2F978-1-4302-1933-0.pdf">https://link.springer.com/content/pdf/10.1007%2F978-1-4302-1933-0.pdf</a> </p>
+<h2>繪圖</h2>
+<p>網路配置圖</p>
+<p><a href="http://cadlab.mde.tw/post/cadlab-ji-jie-she-ji-xi-wang-lu-pei-zhi-tu.html">http://cadlab.mde.tw/post/cadlab-ji-jie-she-ji-xi-wang-lu-pei-zhi-tu.html</a> </p><h1>Wagtail</h1>
 <p><a href="https://github.com/wagtail/wagtail">https://github.com/wagtail/wagtail</a> </p>
 <p><a href="https://github.com/wagtail/bakerydemo">https://github.com/wagtail/bakerydemo</a> </p>
-<p><a href="https://github.com/mhnbcu/wagtailbakery">https://github.com/mhnbcu/wagtailbakery</a> </p><h1>參考資料</h1>
+<p><a href="https://github.com/mhnbcu/wagtailbakery">https://github.com/mhnbcu/wagtailbakery</a> </p><h1>Fossil SCM</h1>
+<p><a href="https://www.fossil-scm.org">https://www.fossil-scm.org</a> </p>
+<p>Fossil SCM 簡介: <a href="http://mde.tw/2017springcd/blog/intro-fossil-scm.html">http://mde.tw/2017springcd/blog/intro-fossil-scm.html</a> </p>
+<p>編譯 Fossil SCM: <a href="http://lab.kmol.info/blog/msys2_compile_fossil_scm.html">http://lab.kmol.info/blog/msys2_compile_fossil_scm.html</a> </p>
+<p><a href="http://mde.tw/2017springwcm/blog/2017spring-ubuntu-stunnel-fossil.html">http://mde.tw/2017springwcm/blog/2017spring-ubuntu-stunnel-fossil.html</a></p>
+<p><a href="http://mde.tw/2017springwcm/blog/2017spring-stunnel-fossil.html">http://mde.tw/2017springwcm/blog/2017spring-stunnel-fossil.html</a> </p>
+<p><iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/JA75HIMhIgk" width="560"></iframe></p>
+<p>以下為建立各學員倉儲的程式:</p>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">import os
+import string
+import random
+# 使用 Gmail 寄信
+import smtplib
+import re
+from email.mime.text import MIMEText  
+from email.header import Header
+
+def id_generator(size=6, chars=string.ascii_uppercase + string.digits):
+    '''
+    source: https://stackoverflow.com/questions/2257441/random-string-generation-with-upper-case-letters-and-digits-in-python
+    '''
+    return ''.join(random.choice(chars) for _ in range(size))
+
+# 讀取學員名單, 逐一取得學員學號, 學員名單, , 檢查點 1/7
+student_data = open("2017fall_list/1b.txt").read()
+student_list = student_data.splitlines()
+
+# 利用 gmail smtp 功能寄信
+server = smtplib.SMTP('smtp.gmail.com:587')
+server.ehlo()
+server.starttls()
+# 以下必須準備好對應郵件帳號與密碼的外部檔案, 所提供的寄信帳號, 是否可以寄信, 檢查點 2/7
+'''
+寄信之前必須到 https://www.google.com/settings/security/lesssecureapps 修改權限, 改為較低安全權限
+否則無法使用程式寄信!
+'''
+# 從外部檔案讀取要用來寄信的 gmail 帳號與密碼
+# mail.txt 格式為: 電子郵箱,對應密碼, 以逗點隔開, 檢查點 3/7
+email_data = open("z:/2017fall/mail.txt").read()
+email, email_password= email_data.split(",")
+print(email, email_password)
+# 是否登入所提供寄信的電子郵箱, 4/7
+server.login(email, email_password)
+# 不同課程名稱, 與對應主機名稱, 必須配合修改 5/7
+course_title = "計算機程式"
+fossil_server = "cpb.kmol.info"
+
+for student_num in student_list:
+    username = student_num
+    repository = username + '.fossil'
+    # 利用所提供的字串, 以亂數組成六個字元的密碼
+    password = id_generator(6, "23456789abcdef")
+    print(student_num, ", " , password)
+
+    # 執行 dos command 指令, 建立倉儲
+    os.system("fossil init -A " +username + " " + repository)
+    print("已經建立倉儲 " + repository)
+
+    # 執行 dos command 指令, 修改使用者密碼
+    os.system("fossil user password " + username + " " + password + " -R " + repository)
+    print("已經修改密碼")
+    
+    # 利用 Gmail 寄信, 告知各學員倉儲連結與帳號密碼
+    # 每一位學員收到的 output 都從這裡 reset
+    output = ""
+    # 若學號欄為空, 則不寄信
+    if student_num != "":
+        # output 為寄給每一位學員的資料表格
+        mail_content = student_num+' 您好: &lt;br /&gt;&lt;br /&gt; 您在 '+course_title+' 課程中的區域網路倉儲: &lt;a href="https://'+fossil_server+'/'+student_num+'"&gt;https://'+fossil_server+'/'+student_num+'&lt;/a&gt;&lt;br /&gt;&lt;br /&gt;'
+        mail_content += '管理帳號為:'+ student_num + '&lt;br /&gt; 管理密碼為: '+ password+'&lt;br /&gt;&lt;br /&gt;'
+        print(student_num)
+        print(mail_content)
+        # 至此 mail_content 已經確定
+        # 在測試與實際寄送資料, 也必須配合修改, 檢查點  6/7
+        receiver_email = student_num + "@gm.nfu.edu.tw"
+        # 測試用
+        #receiver_email = student_num+"@mde.tw"
+        # 列出收信人 email 位址
+        #print(receiver_email)
+        #message= MIMEText(mail_content,'plain','UTF-8')
+        # 以 html 格式寄信
+        message= MIMEText(mail_content,'html','UTF-8')
+        message['Subject'] = Header(course_title+" Fossil SCM 帳號通知", 'UTF-8') 
+        # 可以先不寄信, 確定格式正確後再開啟, 是否實際寄出信件, 檢查點 7/7
+        server.sendmail("gmail_address", receiver_email, message.as_string())
+server.quit()</pre>
+<p>至於產生上述多學員連結的程式:</p>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">student_data = open("2017fall_list/1b.txt").read()
+student_list = student_data.splitlines()
+
+for student_num in student_list:
+    print("  *  [https://cpb.kmol.info/"+student_num+"|"+student_num+"]")</pre>
+<p>已知問題: server cache 在網路連線過程經常丟失, 編輯內容時要先以 ctrl + c 暫存內容後再送出.</p><h1>參考資料</h1>
 <p><a href="/downloads/2013_PhD_Development of CMS-based Web Applications with a Multi-Language Model-Driven Approach.pdf">Development of CMS-based Web Applications with a Multi-Language Model-Driven Approach.pdf</a> (2013 Ph.D. Dissertation)</p>
 <h4>Building a Web Content Management System (2012 M.S. thesis)</h4>
 <p><a href="https://sdsu-dspace.calstate.edu/bitstream/handle/10211.10/3228/Shah_Rima.pdf">https://sdsu-dspace.calstate.edu/bitstream/handle/10211.10/3228/Shah_Rima.pdf</a> (local download)</p>
@@ -374,3 +479,5 @@ EXIT</pre>
 <h4>Harvard University online course</h4>
 <p><a href="https://online-learning.harvard.edu/course/introduction-web-content-management-systems-site-development-0">https://online-learning.harvard.edu/course/introduction-web-content-management-systems-site-development-0</a> </p>
 <p><img alt="" class="with_border" height="367" src="/images/harvard_cms_course.png" width="800"/></p>
+<h4><a href="https://www.oranjeexpress.com/2015/04/29/%E8%8D%B7%E8%98%AD%E7%83%8F%E7%89%B9%E5%8B%92%E6%94%AF%E5%A4%A7%E5%AD%B8/">荷事生非</a></h4>
+<h4>虎擔妙算</h4>
