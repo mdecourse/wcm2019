@@ -199,6 +199,72 @@
 <p style="padding-left: 30px;">Proxy Servers</p>
 <p style="padding-left: 30px;">網路線配置</p>
 <h3>Proxy Server</h3>
+<p>Squid 設定檔案</p>
+<pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false">acl cad_lab src 140.130.17.0/24
+acl cad_lab src 2001:288:6004:17::/64
+ 
+acl SSL_ports port 443
+acl Safe_ports port 80 # http
+acl Safe_ports port 88
+ 
+#acl Safe_ports port 21 # ftp
+acl SSL_ports port 8443
+acl Safe_ports port 8443
+ 
+acl SSL_ports port 9443
+acl Safe_ports port 9443
+ 
+acl SSL_ports port 22
+acl Safe_ports port 22
+ 
+acl Safe_ports port 443 # https
+acl Safe_ports port 1025-65535 # unregistered ports
+acl Safe_ports port 280 # http-mgmt
+acl Safe_ports port 488 # gss-http
+acl Safe_ports port 591 # filemaker
+acl Safe_ports port 777 # multiling http
+acl CONNECT method CONNECT
+ 
+# Deny requests to certain unsafe ports
+http_access deny !Safe_ports
+ 
+# Deny CONNECT to other than secure SSL ports
+http_access deny CONNECT !SSL_ports
+ 
+http_access allow cad_lab
+http_access deny all
+# Only allow cachemgr access from localhost
+http_access allow localhost manager
+http_access deny manager
+ 
+#http_access allow localnet
+http_access allow localhost
+ 
+# And finally deny all other access to this proxy
+http_access deny all
+ 
+# Squid normally listens to port 3128
+http_port 3128
+ 
+#cache_dir ufs /var/spool/squid3 100 16 256
+icp_port 3130
+icp_access allow all
+ 
+cache_dir ufs /var/spool/squid3 2000 16 256
+cache_peer 140.130.17.2 sibling 3128 3130
+cache_peer 140.130.17.4 sibling 3128 3130
+cache_peer 140.130.17.9 sibling 3128 3130
+cache_peer 140.130.17.22 sibling 3128 3130
+cache_peer 140.130.17.23 sibling 3128 3130
+ 
+#
+# Add any of your own refresh_pattern entries above these.
+#
+refresh_pattern ^ftp: 1440 20% 10080
+refresh_pattern ^gopher: 1440 0% 1440
+refresh_pattern -i (/cgi-bin/|\?) 0 0% 0
+refresh_pattern (Release|Packages(.gz)*)$ 0 20% 2880
+refresh_pattern . 0 20% 4320</pre>
 <p></p><h1>程式開發環境</h1>
 <p><span>可攜 Python 系統: </span><a href="https://drive.google.com/open?id=1qSnGb4NBmfGG0jGVNfQJX_9TNVweIdFW">p37-18.12.7z</a><span> (下載解開壓縮檔案後, 以 start.bat 啟動後即可使用) </span></p>
 <h4>啟動批次檔案</h4>
@@ -376,7 +442,122 @@ EXIT</pre>
 <p><a href="https://link.springer.com/content/pdf/10.1007%2F978-1-4302-1933-0.pdf">https://link.springer.com/content/pdf/10.1007%2F978-1-4302-1933-0.pdf</a> </p>
 <h2>繪圖</h2>
 <p>網路配置圖</p>
-<p><a href="http://cadlab.mde.tw/post/cadlab-ji-jie-she-ji-xi-wang-lu-pei-zhi-tu.html">http://cadlab.mde.tw/post/cadlab-ji-jie-she-ji-xi-wang-lu-pei-zhi-tu.html</a> </p><h1>Wagtail</h1>
+<p><a href="http://cadlab.mde.tw/post/cadlab-ji-jie-she-ji-xi-wang-lu-pei-zhi-tu.html">http://cadlab.mde.tw/post/cadlab-ji-jie-she-ji-xi-wang-lu-pei-zhi-tu.html</a> </p><h1>Konva</h1>
+<p><a href="https://konvajs.github.io/">https://konvajs.github.io/</a> </p>
+<h4>What is Konva.JS for?</h4>
+<p>Konva.JS is a JavaScript library used to work with HTML5 canvas. A canvas element is sort of what it sounds like...a place to draw stuff. Most of the time, web pages that create customizable images for you to download--memes, avatars, graphs, etc.--are using a canvas element. Unfortunately, doing anything beyond simple drawings on the canvas can be a royal pain in the rump. But fortunately, some highly skilled programmers have written libraries of JavaScript functions to do the hard parts for us. There are many such libraries for the canvas, and Konva.JS is probably the most popular.</p>
+<p>Source: <a href="https://docs.google.com/presentation/d/1IOCbk5xL_QjPaM5DqybMWLKRZCV8kxAbqNWwDX7Rj5M/htmlpresent">https://docs.google.com/presentation/d/1IOCbk5xL_QjPaM5DqybMWLKRZCV8kxAbqNWwDX7Rj5M/htmlpresent</a> </p>
+<h4>Step 1: Load the Konva.JS library</h4>
+<p>HTML</p>
+<p>&lt;script src="https://cdn.rawgit.com/konvajs/konva/0.11.1/konva.min.js"&gt;&lt;/script&gt;</p>
+<p>Konva.JS isn't part of native JavaScript. It's just a bunch of great JavaScript that somebody else already wrote, and we have to include it in our page before we can use it. We don't, however, have to copy and paste thousands of lines of their code into ours. Instead, we can just load a file that has those thousands of lines of code. There are several places that Konva.JS can be loaded from; I chose this particular URL simply because it's one of the few that survives the school's filters.</p>
+<h4>Step 2: Create an empty HTML element to hold the canvas</h4>
+<p>HTML</p>
+<p>&lt;script src="https://cdn.rawgit.com/konvajs/konva/0.11.1/konva.min.js"&gt;&lt;/script&gt;</p>
+<p>&lt;div id='my-canvas'&gt;&lt;/div&gt;</p>
+<p>There doesn't need to be anything in the div, and it doesn't even necessarily have to be a div. But it does need an ID so that Konva's JavaScript can refer to it.</p>
+<h4>Step 3: Create a stage to hold everything in your drawing</h4>
+<p>JavaScript</p>
+<p>var stage = new Konva.Stage({<br/>container: 'my-canvas', <br/>width: 400, <br/>height: 200<br/>});</p>
+<p>Make sure you remember the new keyword. Konva.Stage is a special kind of function called a constructor (because it makes a new Stage object), and it won't work without the new.<br/>The parameter you pass to the constructor is an object, so use the right syntax for an object.<br/>The container key is the ID of the HTML element where your canvas will be.<br/>The stage doesn't have to be called "stage" (you're using the var keyword, so you can decide what to call it), but "stage" makes sense for simplicity.</p>
+<h4>Step 4: Create a layer and add it to the stage</h4>
+<p>JavaScript</p>
+<p>var stage = new Konva.Stage({<br/>container: 'my-canvas', <br/>width: 400, <br/>height: 200<br/>});</p>
+<p>var layer = new Konva.Layer();<br/>stage.add(layer);</p>
+<p>You can create more than one layer if you want, though there probably won't be much reason to for your projects in this class. If you do create more layers, be sure to give them different names!<br/>Again, don't forget the new keyword when you create the layer.</p>
+<h4>Step 5: Create shapes and add them to the layer</h4>
+<p>var redRect = new Konva.Rect({<br/>x: 20, <br/>y: 50, <br/>width: 100, <br/>height: 100, <br/>fill: 'red'<br/>});</p>
+<p>layer.add(redRect);</p>
+<p>x and y are the coordinates of the upper left corner of the rectangle.<br/>(0, 0) is the UPPER left corner of the stage, not the lower left.<br/>(0, 100) is 100 pixels BELOW the upper left corner.<br/>You can add as many shapes as you want in a layer.<br/>And once again, don't forget new.</p>
+<h4>Step 6: Actually draw the shapes you added</h4>
+<p>…</p>
+<p>stage.draw();</p>
+<p>Just adding the shapes to the layer does NOT make the browser draw them. To save processing power, the browser doesn't draw anything on the screen until you ask it to. Add all of the shapes you want to your layer, then call stage.draw() to finally draw everything in the stage onto the canvas.</p>
+<h4>Other useful properties for a Konva.Rect</h4>
+<p>stroke (string) color of the rectangle's outline<br/>strokeWidth (number) width of the rectangle's outline<br/>cornerRadius (number) rounds corners to this radius<br/>opacity (number) from 0 to 1 (0 is fully transparent, 1 is fully opaque)<br/>rotation (number) degrees of clockwise rotation</p>
+<p>There are far more properties than these available. See the entire list at</p>
+<p><a href="http://konvajs.github.io/api/Konva.Rect.html">http://konvajs.github.io/api/Konva.Rect.html</a> </p>
+<h4>Steps Recap</h4>
+<p>Load the Konva.JS library (script tag in HTML)<br/>Create an HTML element to hold the canvas<br/>Create a stage<br/>Create a layer and add it to your stage<br/>Create shapes and add them to your layer<br/>Call stage.draw() to draw those shapes onto the canvas</p>
+<script src="/static/konva.min.js"></script>
+<div id="container">Konva.Circle<br/><br/>var redCircle = new Konva.Circle({<br/>x: 20,<br/>y: 20,<br/>radius: 10,<br/>fill: 'red'<br/>});<br/><br/>(x, y) are the coordinates of the center of the circle. (Remember that for a Konva.Rect, they were the upper left corner.)</div>
+<div></div>
+<div>Konva.Ellipse<br/><br/>var greenEllipse = new Konva.Ellipse({<br/>x: 20,<br/>y: 20,<br/>radius: {x: 10, y: 5},<br/>fill: 'green'<br/>});<br/><br/>Notice that the radius property of an ellipse is an object with keys x and y so you can make the horizontal and vertical sizes different.<br/>(x, y) is still the center.</div>
+<div>
+<div class="shape" title="">
+<h4>What if I don't want the inside filled in?</h4>
+</div>
+<div class="shape" title="">
+<p>var greenEllipse = new Konva.Ellipse({<br/>x: 20,<br/>y: 20,<br/>radius: {x: 10, y: 5},<br/>stroke: 'green'<br/>});</p>
+<p>This will create an ellipse outlined in green, but with the inside empty since there is no fill.</p>
+<p>You can use both a stroke and a fill in the same shape if you want. This lets you make a green outline filled with red, for example.</p>
+<h4>Productivity Tip: Add several shapes to the layer at once</h4>
+<p>var redRect = new Konva.Rect({ blah, blah, blah });<br/>var blueRect = new Konva.Rect({ blah, blah, blah });<br/>var redCircle = new Konva.Rect({ blah, blah, blah });<br/>var blueCircle = new Konva.Rect({ blah, blah, blah });</p>
+<p>layer.add(redRect, blueRect, redCircle, blueCircle);</p>
+<p>The order matters! Shapes you add to the layer later will cover up shapes added earlier if they overlap.</p>
+<h4>Even more productivity: The clone method</h4>
+<p>var leftCircle = new Konva.Circle({<br/>x: 20,<br/>y: 20,<br/>radius: 10,<br/>fill: '#ff0000'<br/>});</p>
+<p>var rightCircle = leftCircle.clone({<br/>x: 60<br/>});</p>
+<p>With the clone method, I only have to specify the properties that are different from the shape I'm copying.</p>
+<p>Konva.Line</p>
+<p>var blueV = new Konva.Line({<br/>points: [50, 50, 100, 100, 150, 50],<br/>stroke: 'blue',<br/>strokeWidth: 4 <br/>});</p>
+<p>This creates a line starting at the ordered pair (50, 50), then to (100, 100), and then to (150, 50).</p>
+<p>Making a Polygon</p>
+<p>var blueV = new Konva.Line({<br/>points: [50, 50, 100, 100, 150, 50],<br/>stroke: 'blue',<br/>strokeWidth: 4,<br/>closed: true <br/>});</p>
+<p>If you set the closed property to true, Konva automatically adds a segment from the last point back to the first point. This also allows you to add a fill if you wish.</p>
+<h4>Productivity Tip: Use x and y with Konva.Line</h4>
+<p>var blueV = new Konva.Line({<br/>points: [50, 50, 100, 100, 150, 50],<br/>stroke: 'blue',<br/>});</p>
+<p>var theSame = new Konva.Line({<br/>x: 50,<br/>y: 50,<br/>points: [0, 0, 50, 50, 100, 0], <br/>stroke: 'blue',<br/>});</p>
+<p>These two shapes are exactly the same. The second one moves the point (0,0) of the line to (50,50) of the canvas, and calculates everything else accordingly. You can use x and y to avoid recalculating every ordered pair if you decide you want everything 10 pixels to the right, for example.</p>
+</div>
+</div>
+<script>// <![CDATA[
+// first we need to create a stage
+var stage = new Konva.Stage({
+  container: 'container',   // id of container <div>
+  width: 500,
+  height: 500
+});
+
+// then create layer
+var layer = new Konva.Layer();
+
+// create our shape
+var circle = new Konva.Circle({
+  x: stage.getWidth() / 2,
+  y: stage.getHeight() / 2,
+  radius: 70,
+  fill: 'red',
+  stroke: 'black',
+  strokeWidth: 4,
+  draggable: true
+});
+
+// add the shape to the layer
+layer.add(circle);
+
+// add the layer to the stage
+stage.add(layer);
+
+// draw the image
+layer.draw();
+// ]]></script><h1>X3d</h1>
+<p><a href="https://doc.x3dom.org/tutorials/basics/htmlCSS/index.html">https://doc.x3dom.org/tutorials/basics/htmlCSS/index.html</a> </p>
+<p><a href="https://codefluegel.com/en/3d-im-browser/">https://codefluegel.com/en/3d-im-browser/</a> </p>
+<p><a href="http://3dspace.com/2016/02/x3dom-vs-three-js/">http://3dspace.com/2016/02/x3dom-vs-three-js/</a> </p>
+<p><a href="http://doc.instantreality.org/tutorial/direct-scene-manipulations-with-javascript/">http://doc.instantreality.org/tutorial/direct-scene-manipulations-with-javascript/</a> </p>
+<script src="https://www.x3dom.org/download/x3dom.js"></script>
+<script>// <![CDATA[
+function changeColor()
+        {
+            if(document.getElementById("color").getAttribute('diffuseColor')=="1 0 0")
+                document.getElementById("color").setAttribute('diffuseColor', '0 0 1');
+            else
+                document.getElementById("color").setAttribute('diffuseColor', '1 0 0');
+        }
+>
+// ]]></script>
+<p>This is my first html page with some 3d objects. <x3d height="400px" width="500px"> <scene> <shape onclick="changeColor();"> <appearance> <material diffusecolor="1 0 0" id="color"> </material> </appearance> <box></box> </shape> <transform translation="-3 0 0"> <shape> <appearance> <material diffusecolor="0 1 0"></material> </appearance> <cone></cone> </shape> </transform> <transform translation="3 0 0"> <shape> <appearance> <material diffusecolor="0 0 1"></material> </appearance> <sphere></sphere> </shape> </transform> </scene> </x3d></p><h1>Wagtail</h1>
 <p><a href="https://github.com/wagtail/wagtail">https://github.com/wagtail/wagtail</a> </p>
 <p><a href="https://github.com/wagtail/bakerydemo">https://github.com/wagtail/bakerydemo</a> </p>
 <p><a href="https://github.com/mhnbcu/wagtailbakery">https://github.com/mhnbcu/wagtailbakery</a> </p><h1>Fossil SCM</h1>
