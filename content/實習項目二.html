@@ -97,7 +97,31 @@ $(document).ready(doSearch);
 <p style="padding-left: 60px;">pelican, and markdown is for Pelican Blog</p>
 <p style="padding-left: 60px;">安裝上述模組後, p37 容量約 420 MB</p>
 <h4>下載 <a href="https://drive.google.com/file/d/1Cw8mHRcHKIZj7K7_m6x_af4vzo89539a/view?usp=sharing">kmol_2019.z7</a></h4>
+<h4>下載 <a href="https://drive.google.com/file/d/1G3cEZsw6d7NjqLLgu9jljVNBd6wF-ZrG/view?usp=sharing">nodejs_with_ungit.7z</a></h4>
 <h4>Git 與 Github</h4>
 <p>Git 教材: <a href="https://git-scm.com/book/zh-tw/v2">https://git-scm.com/book/zh-tw/v2</a> </p>
 <p>Github 教材: <a href="https://lab.github.com/">https://lab.github.com/</a>  (已經以 scrum-1 帳號開始<a href="https://github.com/scrum-1/github-slideshow">學習流程</a>)</p>
-<br />實習任務 << <a href='實習任務.html'>Previous</a> <a href='Blogger API.html'>Next</a> >> Blogger API</div></section></div></body></html>
+<hr/>
+<h4><a href="https://nodejs.org/en/">Nodejs</a> 與 <a href="https://github.com/FredrikNoren/ungit">Ungit</a></h4>
+<p>ungit 是一個網際 git 客戶端圖形化工具, 以 node.js 開發, 啟動時需要 git、node.js 與 npm. 將 ungit 製作成可攜系統, 必須下載 node.js 安裝後, 再安裝 ungit, 接著取下 c:\program files\nodejs 與 c:\users\用戶名稱\AppData\roaming\npm 及 npm-cache 放入 nodejs 中的 appdata 目錄, 並將整個 nodejs 目錄放入可攜 data 目錄,  並設定命令列搜尋路徑:</p>
+<p>set path8=%Disk%:\nodejs;%Disk%:\nodejs\appdata\roaming\npm;</p>
+<p>可攜系統即可透過指令進入 github 倉儲中, 以 ungit 進行圖形化操作.</p>
+<p>此外, ungit 啟動程式碼中, 必須蓋掉擷取操作系統使用者的設定, 以便讓 ungit 導引 git 使用可攜系統 home 目錄中的 .gitconfig 設定.</p>
+<pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false">#!/bin/sh
+basedir=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")
+
+# 必須關掉下列設定, 讓 ungit 可以導引 git 讀取 y:\home 下的 .gitconfig 設定
+#case `uname` in
+    #*CYGWIN*) basedir=`cygpath -w "$basedir"`;;
+#esac
+
+if [ -x "$basedir/node" ]; then
+  "$basedir/node"  "$basedir/node_modules/ungit/bin/ungit" "$@"
+  ret=$?
+else 
+  node  "$basedir/node_modules/ungit/bin/ungit" "$@"
+  ret=$?
+fi
+exit $ret</pre>
+<p>利用 ungit 執行 <a href="https://github.com/mdecourse/cmstest">cmstest 倉儲</a>改版提交與推送畫面:</p>
+<p><img alt="" height="819" src="./../images/ungit_on_cmstest_repository.png" width="800"/></p><br />實習任務 << <a href='實習任務.html'>Previous</a> <a href='Blogger API.html'>Next</a> >> Blogger API</div></section></div></body></html>
