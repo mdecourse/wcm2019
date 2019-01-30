@@ -174,7 +174,15 @@ else
 fi
 exit $ret</pre>
 <p>利用 ungit 執行 <a href="https://github.com/mdecourse/cmstest">cmstest 倉儲</a>改版提交與推送畫面:</p>
-<p><img alt="" height="819" src="/images/ungit_on_cmstest_repository.png" width="800"/></p><h3>Blogger API</h3>
+<p><img alt="" height="819" src="/images/ungit_on_cmstest_repository.png" width="800"/></p>
+<p>在實際操作 ungit 過程, 由於在 Windows 10 環境會啟動 Edge 瀏覽器, 若要在啟動 ungit 時使用 Google Chrome 瀏覽器 (或其他瀏覽器), 必須使用下列指令:</p>
+<p>ungit --launchBrowser=0 --launchCommand "C:\PROGRA~2\Google\Chrome\Application\chrome.exe  %U"</p>
+<p>其中, <span>PROGRA~2 為 "Program Files (x86)" 的縮寫 (註: PROGRA~1 為 "Program Files" 的縮寫), 且 %U 為 ungit 啟動時對應倉儲目錄的 URL 資料.</span></p>
+<p><span>因此上述指令意指, 啟動 ungit 時, 不要使用內建設定的 Edge 瀏覽器, 而是執行隨後的指令, 而該指令即透過縮寫的目錄名稱, 對應 "C:\Program Files (x86)", 針對目前所在的倉儲目錄, 以 Google Chrome 瀏覽器開啟 ungit 的網際倉儲連結.</span></p>
+<p><span>為了簡化上述指令的呼叫, 可以將上述指令改為: </span></p>
+<p><span>ungit --launchBrowser=0 --launchCommand "C:\PROGRA~2\Google\Chrome\Application\chrome.exe  %%U"</span></p>
+<p><span>並以 SciTE 編輯器存入 Y:\kungit.bat 批次檔案中, 當使用者以命令列進入特定倉儲時, 只要輸入 kungit 即可呼叫此一 ungit 指令執行.</span></p>
+<p>上述以批次檔案執行的 %%U, 表示要在 Windows command 中列出 %U, 因為 "%" 符號在批次檔案中具有特定意義, 因此要在批次檔案中列出 "%", 必須使用 "%%", 其他相關詳細說明, 請參考 <a href="https://ss64.com/nt/syntax-esc.html">https://ss64.com/nt/syntax-esc.html</a> </p><h3>Blogger API</h3>
 <p>Blogger: <a href="https://www.blogger.com">https://www.blogger.com</a></p>
 <p><a href="https://developers.google.com/blogger/">https://developers.google.com/blogger/</a></p>
 <p><a href="https://pypi.org/project/google-api-python-client/">https://pypi.org/project/google-api-python-client/</a></p>
