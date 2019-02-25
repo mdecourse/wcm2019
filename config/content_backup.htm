@@ -150,7 +150,7 @@
 <h4>Q2: 為何電腦輔助設計室中的電腦, 有三個 RJ45 網路卡的插槽? 有何作用?</h4>
 <p>A2: 雖然這批電腦已經購入超過兩年, 但是 CPU 為 intel i7 第四代晶片, 且配有 16 GB 的記憶體, 因此在啟用 <a href="https://www.intel.com/content/www/us/en/virtualization/virtualization-technology/intel-virtualization-technology.html">vt</a> 功能的情況下, 除了第三磁區的實體 Windows 10 之外, 至少可以再透過 <a href="https://www.virtualbox.org/wiki/Downloads">Virtualbox</a>, 配置兩台虛擬主機, 而這兩台虛擬主機可以啟用另一台 Windows 10, 讓學員練習測試各種操作, 並且在另一台虛擬主機安裝 Ubuntu 18.04 伺服器, 可用來建構網際內容伺服器, 讓學員了解如何自行建立並配置與機械設計流程有關的網際服務.</p>
 <p>在上述同時啟用一台實體 Windows 10, 兩台虛擬主機的情況下, 為了讓各客戶電腦或虛擬伺服器能夠擁有獨立的連外網路頻寬, 就可以將三台主機分別導流到三片實體網路卡, 以提升三台主機共用一片實體網路卡連線的效益.</p>
-<h4>Q3: 當 Github Pages 上的 CMSimfly 倉儲與 Heroku 上的動態 CMSimfly 設定同步後, 讓再以管理者帳號登入 Heroku 上的 CMSimfly 修改資料, 有可能造成動態 CMSimfly 上的資料與 Github Pages 上的版本不同步, 且在多人連線下, 甚至讓 Heroku 動態 CMSimfly 上的資料完全消失.</h4>
+<h4>Q3: 當 Github Pages 上的 CMSimfly 倉儲與 Heroku 上的動態 CMSimfly 設定同步後, 若再以管理者帳號登入 Heroku 上的 CMSimfly 修改資料, 有可能造成動態 CMSimfly 上的資料與 Github Pages 上的版本不同步, 且在多人連線下, 甚至讓 Heroku 動態 CMSimfly 上的資料完全消失.</h4>
 <p>A3: Heroku 上的動態 CMSimfly 資料消失, 是一個已知的 bug, 目前尚無法處理, 有待修正.</p>
 <p>至於若兩端設定同步後, 資料版本是由 Github Pages 上的倉儲確定後, 再同步到 Heroku 的動態 CMSimfly 上, 因此若因為編輯 Heroku 上的資料而造成不同步, 只需要在 Github Pages 倉儲中進行改版後提交, Heroku 上的動態 CMSimfly 就會自動同步.</p>
 <p></p><h2>實習項目二</h2>
