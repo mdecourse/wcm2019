@@ -249,7 +249,11 @@ IdentityFile "y:\home\.ssh\id_rsa"
  
 TCPKeepAlive yes
 IdentitiesOnly yes</pre>
-<p><br/><br/></p><h3>Blogger API</h3>
+<h4>實際操作問題</h4>
+<ol>
+<li>Github 原先 Clone or Download 按鈕下提供 https 與 ssh 等兩種連線協定, 但是目前已去除倉儲中的 ssh 連結, 原因不明.</li>
+<li>上述 ssh 以系上 proxy server 作為跳板, 進行 Github 倉儲連線後, 該代理主機被校網防火牆判定為 IPS 攻擊而斷線, 具體原因亦不明.</li>
+</ol><h3>Blogger API</h3>
 <p>Blogger: <a href="https://www.blogger.com">https://www.blogger.com</a></p>
 <p><a href="https://developers.google.com/blogger/">https://developers.google.com/blogger/</a></p>
 <p><a href="https://pypi.org/project/google-api-python-client/">https://pypi.org/project/google-api-python-client/</a></p>
@@ -261,7 +265,25 @@ IdentitiesOnly yes</pre>
 <p><a href="https://stackoverflow.com/questions/48527480/insert-a-draft-blog-post-using-blogger-api-v3-with-python">https://stackoverflow.com/questions/48527480/insert-a-draft-blog-post-using-blogger-api-v3-with-python</a></p>
 <p><a href="https://github.com/googleapis/google-api-python-client/blob/master/samples/blogger/blogger.py">https://github.com/googleapis/google-api-python-client/blob/master/samples/blogger/blogger.py</a></p>
 <p><a href="http://www.easonhsu.idv.tw/2017/01/use-blogger-python-api-to-publish-from.html">http://www.easonhsu.idv.tw/2017/01/use-blogger-python-api-to-publish-from.html</a></p>
-<p><a href="https://pypi.org/project/EasyBlogger/">https://pypi.org/project/EasyBlogger/</a></p><h2>實習項目三</h2>
+<p><a href="https://pypi.org/project/EasyBlogger/">https://pypi.org/project/EasyBlogger/</a></p>
+<h3>Blogger API 應用</h3>
+<h4>Blogger API 入門</h4>
+<p><a href="https://developers.google.com/blogger/docs/3.0/getting_started">https://developers.google.com/blogger/docs/3.0/getting_started</a> </p>
+<p>Blogger is built on five basic concepts:</p>
+<ol>
+<li>Blogs: The root concept of the API. A blog has posts and pages. This is the container for blog meta-information like blog name and Description.</li>
+<li>Posts: A blog post is the publishable item that the blog author has created. This information is meant to be timely, reflecting what the authors want to publish to the world now. It is understood that as time passes, blog posts content ages and becomes less relevent.</li>
+<li>Comments: A comment is the place where people other than the blog post author react to what the author has written. Everything from bricks to bouquets.</li>
+<li>Pages: A page is a place for static content, such as biographical information, or the ways to contact the user. This is generally timeless information that doesn't change very often.</li>
+<li>Users: A user is someone who interacts with Blogger, be they acting as an Author, an Administrator, or just a Reader. For public blogs, readers may be anonymous, but on private blogs a reader must be identified by Blogger.</li>
+</ol>
+<h4>使用 Blogger API</h4>
+<p><a href="https://developers.google.com/blogger/docs/3.0/using">https://developers.google.com/blogger/docs/3.0/using</a> </p>
+<p>登入 Blogger 對應帳號後, 以 <a href="https://www.blogger.com">https://www.blogger.com</a> 連結, 可以取得對應 blogID.</p>
+<p><a href="https://2019wcm.blogspot.com/">https://2019wcm.blogspot.com/</a> 之 blogID=5276710004996457925</p>
+<p>透過 <a href="https://www.googleapis.com/blogger/v3/blogs/5276710004996457925">https://www.googleapis.com/blogger/v3/blogs/5276710004996457925</a> 可以檢視未登入透過 blogID 讀取資料所傳回的訊息</p>
+<h4>Blogger API 參考</h4>
+<p><a href="https://developers.google.com/blogger/docs/3.0/reference/">https://developers.google.com/blogger/docs/3.0/reference/</a> </p><h2>實習項目三</h2>
 <p>利用 Html5 建立 Github Pages 上的個人網站</p>
 <p>HTML5 Solutions: Essential Techniques for HTML5 Developers</p>
 <p style="padding-left: 30px;"><a href="https://link.springer.com/book/10.1007/978-1-4302-3387-9">https://link.springer.com/book/10.1007/978-1-4302-3387-9</a></p>

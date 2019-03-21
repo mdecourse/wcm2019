@@ -265,7 +265,75 @@ IdentitiesOnly yes</pre>
 <p><a href="https://stackoverflow.com/questions/48527480/insert-a-draft-blog-post-using-blogger-api-v3-with-python">https://stackoverflow.com/questions/48527480/insert-a-draft-blog-post-using-blogger-api-v3-with-python</a></p>
 <p><a href="https://github.com/googleapis/google-api-python-client/blob/master/samples/blogger/blogger.py">https://github.com/googleapis/google-api-python-client/blob/master/samples/blogger/blogger.py</a></p>
 <p><a href="http://www.easonhsu.idv.tw/2017/01/use-blogger-python-api-to-publish-from.html">http://www.easonhsu.idv.tw/2017/01/use-blogger-python-api-to-publish-from.html</a></p>
-<p><a href="https://pypi.org/project/EasyBlogger/">https://pypi.org/project/EasyBlogger/</a></p><h2>實習項目三</h2>
+<p><a href="https://pypi.org/project/EasyBlogger/">https://pypi.org/project/EasyBlogger/</a></p>
+<h3>Blogger API 應用</h3>
+<h4>Blogger API 入門</h4>
+<p><a href="https://developers.google.com/blogger/docs/3.0/getting_started">https://developers.google.com/blogger/docs/3.0/getting_started</a> </p>
+<p>Blogger is built on five basic concepts:</p>
+<ol>
+<li>Blogs: The root concept of the API. A blog has posts and pages. This is the container for blog meta-information like blog name and Description.</li>
+<li>Posts: A blog post is the publishable item that the blog author has created. This information is meant to be timely, reflecting what the authors want to publish to the world now. It is understood that as time passes, blog posts content ages and becomes less relevent.</li>
+<li>Comments: A comment is the place where people other than the blog post author react to what the author has written. Everything from bricks to bouquets.</li>
+<li>Pages: A page is a place for static content, such as biographical information, or the ways to contact the user. This is generally timeless information that doesn't change very often.</li>
+<li>Users: A user is someone who interacts with Blogger, be they acting as an Author, an Administrator, or just a Reader. For public blogs, readers may be anonymous, but on private blogs a reader must be identified by Blogger.</li>
+</ol>
+<h4>使用 Blogger API</h4>
+<p><a href="https://developers.google.com/blogger/docs/3.0/using">https://developers.google.com/blogger/docs/3.0/using</a> </p>
+<p>登入 Blogger 對應帳號後, 以 <a href="https://www.blogger.com">https://www.blogger.com</a> 連結, 可以取得對應 blogID.</p>
+<p><a href="https://2019wcm.blogspot.com/">https://2019wcm.blogspot.com/</a> 之 blogID=5276710004996457925</p>
+<p>透過 <a href="https://www.googleapis.com/blogger/v3/blogs/5276710004996457925">https://www.googleapis.com/blogger/v3/blogs/5276710004996457925</a> 可以檢視未登入透過 blogID 讀取資料所傳回的訊息</p>
+<h4>Blogger API 參考</h4>
+<p><a href="https://developers.google.com/blogger/docs/3.0/reference/">https://developers.google.com/blogger/docs/3.0/reference/</a> </p>
+<p>參考程式:</p>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">__author__ = 'disk1 At goodkym.com'
+
+import sys
+from oauth2client import client
+from googleapiclient import sample_tools
+
+argv = ""
+# 認證並建立服務
+service, flags = sample_tools.init(
+  argv, 'blogger', 'v3', __doc__, __file__,
+  scope='https://www.googleapis.com/auth/blogger')
+
+try:
+    users = service.users()
+    # 取得使用者 profile 資料
+    user = users.get(userId='self').execute()
+    print('網誌名稱: %s' % user['displayName'])
+    blogs = service.blogs()
+    # 取得使用者所建立網誌名稱
+    blogs = blogs.listByUser(userId='self').execute()
+    for blog in blogs['items']:
+        print(blog['name'], blog['url'])
+    posts = service.posts()
+    # 新增網誌 post 時, 需要 blog id
+    '''
+    body = {
+    "kind": "blogger#post",
+    "id": "5276710004996457925",
+    "title": "透過 Python 程式新增網誌文章",
+    "content":"使用 Google Blogger API 可以利用程式新增網誌文章內容"
+    }
+    insert = posts.insert(blogId='5276710004996457925', body=body)
+    posts_doc = insert.execute()
+    print(posts_doc)
+    '''
+    # 更新網誌文章時的 body
+    body = {
+    "kind": "blogger#post",
+    "title": "透過 Python 程式修改網誌文章",
+    "content":'''使用 Google Blogger API 可以利用程式修改網誌文章內容. &lt;a href="http://mde.tw/cd2019"&gt;http://mde.tw/cd2019&lt;/a&gt;
+    '''
+    }
+    update = posts.update(blogId="5276710004996457925", postId="1389587938059038064", body=body, publish=True)
+    update_doc = update.execute()
+    print(update_doc)
+except(client.AccessTokenRefreshError):
+    print("error")
+    </pre>
+<p></p><h2>實習項目三</h2>
 <p>利用 Html5 建立 Github Pages 上的個人網站</p>
 <p>HTML5 Solutions: Essential Techniques for HTML5 Developers</p>
 <p style="padding-left: 30px;"><a href="https://link.springer.com/book/10.1007/978-1-4302-3387-9">https://link.springer.com/book/10.1007/978-1-4302-3387-9</a></p>
