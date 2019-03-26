@@ -366,7 +366,23 @@ except(client.AccessTokenRefreshError):
 <p><img alt="" height="619" src="/images/wcm_w6_1.png" width="800"/></p>
 <h3>game1</h3>
 <h4>The game of craps has the following rules:</h4>
+<p>課本章節: <a href="https://link.springer.com/chapter/10.1007/978-1-4842-4155-4_2">https://link.springer.com/chapter/10.1007/978-1-4842-4155-4_2</a> </p>
 <p>The player throws a pair of dice. The sum of the two top faces is what matters so a 1<br/>and a 3 is the same as 2 and 2. The sum of two 6-sided dice can be any number from 2 to<br/>12. If the player throws a 7 or 11 on the first throw, the player wins. If the player throws a 2, 3, or 12, the player loses. For any other result (4, 5, 6, 8, 9, 10), this result is recorded as what is called the player’s point and a follow-up throw is required. On follow-up throws, a throw of 7 loses and a throw of the player’s point wins. For anything else, the game continues with the follow-up throw rules.</p>
+<p><button onclick="myFunction()">Try it</button></p>
+<p id="demo"></p>
+<script>// <![CDATA[
+function myFunction() {
+  document.getElementById("demo").innerHTML = Math.floor(Math.random()*10);
+}
+// ]]></script>
+<p>上述程式原始碼:</p>
+<pre class="brush:html;auto-links:false;toolbar:false" contenteditable="false">&lt;p&gt;&lt;button onclick="myFunction()"&gt;Try it&lt;/button&gt;&lt;/p&gt;
+&lt;p id="demo"&gt;&lt;/p&gt;
+&lt;script&gt;// &lt;![CDATA[
+function myFunction() {
+  document.getElementById("demo").innerHTML = Math.floor(Math.random()*10);
+}
+// ]]&gt;&lt;/script&gt;</pre>
 <script type="text/javascript">// <![CDATA[
 var cwidth = 400;
 	var cheight = 300;
