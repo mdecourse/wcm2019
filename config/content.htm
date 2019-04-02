@@ -711,7 +711,31 @@ function draw2mid() {
 &lt;p&gt;&lt;canvas height="300" id="canvas" width="400"&gt; Your browser doesn't support the HTML5 element canvas. &lt;/canvas&gt; &lt;br&gt; &lt;button onclick="throwdice();"&gt;Throw dice &lt;/button&gt;&lt;/p&gt;
 &lt;form id="f" name="f"&gt;Stage: &lt;input name="stage" type="text" value="First Throw"&gt; Point: &lt;input name="pv" type="text" value="   "&gt; Outcome: &lt;input name="outcome" type="text" value="     "&gt;&lt;/form&gt;</pre>
 <p></p>
-<h2>實習項目四</h2>
+<h3>canvas1</h3>
+<p><canvas height="300" id="canvas" width="400"> Your browser doesn't support the HTML5 element canvas. </canvas></p>
+<script>// <![CDATA[
+canvas = document.getElementById("canvas");
+ctx = canvas.getContext('2d');
+
+function draw(){
+ ctx.beginPath();
+ ctx.strokeStyle = "rgb(200,0,0)";
+ ctx.arc(200, 200,50,0,2*Math.PI, false);
+ ctx.stroke();
+}
+
+function clear_canvas(){
+// Store the current transformation matrix
+ctx.save();
+
+// Use the identity matrix while clearing the canvas
+ctx.setTransform(1, 0, 0, 1, 0, 0);
+ctx.clearRect(0, 0, canvas.width, canvas.height);
+// Restore the transform
+ctx.restore();
+}
+// ]]></script>
+<p><button onclick="draw()">繪圖</button> <button onclick="clear_canvas()">清除</button></p><h2>實習項目四</h2>
 <p>多人共同維護 Github Pages 內容, 導入 CMSimfly</p>
 <p>將 CMSimfly 部署到 Github Pages 與 Heroku</p>
 <h2>實習項目五</h2>

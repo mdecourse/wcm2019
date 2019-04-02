@@ -261,7 +261,7 @@ exit $ret</pre>
 <p><span>並以 SciTE 編輯器存入 Y:\kungit.bat 批次檔案中, 當使用者以命令列進入特定倉儲時, 只要輸入 kungit 即可呼叫此一 ungit 指令執行.</span></p>
 <p>上述以批次檔案執行的 %%U, 表示要在 Windows command 中列出 %U, 因為 "%" 符號在批次檔案中具有特定意義, 因此要在批次檔案中列出 "%", 必須使用 "%%", 其他相關詳細說明, 請參考 <a href="https://ss64.com/nt/syntax-esc.html">https://ss64.com/nt/syntax-esc.html</a> </p>
 <h3>Git 設定</h3>
-<p><span>使用</span><br/><br/><span>git config --edit --system</span><br/><br/><span>可以帶出 vi 編輯器, 編輯 git 指令所使用的系統設定, 只要將 credential 項目中的 helper = manager 刪除後儲存, 即可關閉內定將使用者 Github 帳號密碼儲存於操作系統的問題.</span><br/><br/><span>建立 OpenSSH 格式的 Private 與 Public Keys</span><br/><br/><span>接下來, 在可攜系統的命令列視窗中, 以 sh 執行 Git 的 shell, 使用</span><br/><br/><span>ssh-keygen -t rsa -b 4096 -C "This is my key"</span><br/><br/><span>建立位於 y:\home\.ssh\id_rsa 的 Private Key 與位於 y:\home\.ssh\id_rsa.pub 的 Public Key, 並且將 id_rsa.pub 的內容, 轉貼到 Github 帳號 settings 中 SSH and GPG keys 項目內的 SSH Public Key 區.</span><br/><br/><span>使用 ssh 協定執行 git clone</span><br/><br/><span>為了採用 OpenSSH 協定執行登入認證, 使用者在近端 git clone 倉儲時, 必須使用類似 git@github.com:帳號/倉儲.git 的連線 URL</span><br/><br/><span>例如:<span> </span></span><br><br><span>要將<span> </span></span><a href="https://github.com/mdecourse/wcm2019">https://github.com/mdecourse/wcm2019</a><span><span> </span>的倉儲, 以 ssh 協定 git clone 到近端時, 必須使用:</span><br/><br/><span>git clone git@github.com:mdecourse/wcm2019.git</span><br/><br/><span>建立位於 wcm2019 的倉儲目錄, 而 git add ., git commit -m 與 git push 的指令則與採 http 連線時的指令相同. 只是採用 ssh 連線下的 git push, git 會讀取位於 y:\home\.ssh\id_rsa Private Key 與 Github 帳號上所設定的 Public Key 進行比對, 若同為一個 pair, 則通過認證, 可將改版的資料推送到遠端倉儲中.</span><br/><br/><span>上述 ssh 協定下的 git clone 與 git push, 配合 ungit 使用時, 可以直接輸入提交訊息後, 以 commit &amp; push 將近端版本提交推送到遠端.</span><br/><br/><span>ssh 連線透過 proxy server, 必須設定 y:\home\.ssh\config 如下:</span></br></br></p>
+<p><span>使用</span><br/><br/><span>git config --edit --system</span><br/><br/><span>可以帶出 vi 編輯器, 編輯 git 指令所使用的系統設定, 只要將 credential 項目中的 helper = manager 刪除後儲存, 即可關閉內定將使用者 Github 帳號密碼儲存於操作系統的問題.</span><br/><br/><span>建立 OpenSSH 格式的 Private 與 Public Keys</span><br/><br/><span>接下來, 在可攜系統的命令列視窗中, 以 sh 執行 Git 的 shell, 使用</span><br/><br/><span>ssh-keygen -t rsa -b 4096 -C "This is my key"</span><br/><br/><span>建立位於 y:\home\.ssh\id_rsa 的 Private Key 與位於 y:\home\.ssh\id_rsa.pub 的 Public Key, 並且將 id_rsa.pub 的內容, 轉貼到 Github 帳號 settings 中 SSH and GPG keys 項目內的 SSH Public Key 區.</span><br/><br/><span>使用 ssh 協定執行 git clone</span><br/><br/><span>為了採用 OpenSSH 協定執行登入認證, 使用者在近端 git clone 倉儲時, 必須使用類似 git@github.com:帳號/倉儲.git 的連線 URL</span><br/><br/><span>例如:<span> </span></span><br/><br/><span>要將<span> </span></span><a href="https://github.com/mdecourse/wcm2019">https://github.com/mdecourse/wcm2019</a><span><span> </span>的倉儲, 以 ssh 協定 git clone 到近端時, 必須使用:</span><br/><br/><span>git clone git@github.com:mdecourse/wcm2019.git</span><br/><br/><span>建立位於 wcm2019 的倉儲目錄, 而 git add ., git commit -m 與 git push 的指令則與採 http 連線時的指令相同. 只是採用 ssh 連線下的 git push, git 會讀取位於 y:\home\.ssh\id_rsa Private Key 與 Github 帳號上所設定的 Public Key 進行比對, 若同為一個 pair, 則通過認證, 可將改版的資料推送到遠端倉儲中.</span><br/><br/><span>上述 ssh 協定下的 git clone 與 git push, 配合 ungit 使用時, 可以直接輸入提交訊息後, 以 commit &amp; push 將近端版本提交推送到遠端.</span><br/><br/><span>ssh 連線透過 proxy server, 必須設定 y:\home\.ssh\config 如下:</span></p>
 <pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false">ProxyCommand y:/PortableGit/mingw64/bin/connect.exe -H proxy_server_name:3128 %h %p
  
 Host github.com
@@ -371,16 +371,20 @@ except(client.AccessTokenRefreshError):
 <p></p>
 <h2>實習項目三</h2>
 <p>利用 Html5 建立 Github Pages 上的個人網站</p>
-<p>1. The Essential Guide to HTML5 (2018)</p>
+<p>1. The Essential Guide to HTML5 - Using Games to Learn HTML5 and JavaScript (2018)</p>
 <p><a href="https://link.springer.com/book/10.1007/978-1-4842-4155-4">https://link.springer.com/book/10.1007/978-1-4842-4155-4</a> </p>
 <p>Source Code: <a href="https://github.com/Apress/essential-guide-html5">https://github.com/Apress/essential-guide-html5</a> </p>
 <p>Example: <a href="/downloads/essential-guide-html5/Ch04/cannball1.html">/downloads/essential-guide-html5/Ch04/cannball1.html</a> </p>
-<p>2. Pro HTML5 Games (2017)</p>
+<p>2. Pro HTML5 Games - Learn to Build your Own Games using HTML5 and JavaScript (2017)</p>
 <p><a href="https://link.springer.com/book/10.1007/978-1-4842-2910-1">https://link.springer.com/book/10.1007/978-1-4842-2910-1</a> </p>
 <p>Source Code: <a href="https://github.com/apress/pro-html5-games-17">https://github.com/apress/pro-html5-games-17</a> </p>
 <p>Example: <a href="/downloads/pro-html5-games-17/9781484229095/9781484229095_Ch05/index.html">/downloads/pro-html5-games-17/9781484229095/9781484229095_Ch05/index.html</a></p>
-<p><img alt="" height="619" src="/images/wcm_w6_1.png" width="800"/></p>
-<h3>game1</h3>
+<p><img caption="false" height="464" src="/images/wcm_w6_1.png" width="600"/></p>
+<h4>參考資料</h4>
+<p>1. Introducing JavaScript Game Development - Build a 2D Game from the Ground Up (2017)</p>
+<p><a href="https://link.springer.com/book/10.1007/978-1-4842-3252-1">https://link.springer.com/book/10.1007/978-1-4842-3252-1</a> </p>
+<p>2. JavaScript Creativity - Exploring the Modern Capabilities of JavaScript and HTML5 (2014)</p>
+<p><a href="https://link.springer.com/book/10.1007/978-1-4302-5945-9">https://link.springer.com/book/10.1007/978-1-4302-5945-9</a> </p><h3>game1</h3>
 <h4>The game of craps has the following rules:</h4>
 <p>課本章節: <a href="https://link.springer.com/chapter/10.1007/978-1-4842-4155-4_2">https://link.springer.com/chapter/10.1007/978-1-4842-4155-4_2</a> </p>
 <p>The player throws a pair of dice. The sum of the two top faces is what matters so a 1<br/>and a 3 is the same as 2 and 2. The sum of two 6-sided dice can be any number from 2 to<br/>12. If the player throws a 7 or 11 on the first throw, the player wins. If the player throws a 2, 3, or 12, the player loses. For any other result (4, 5, 6, 8, 9, 10), this result is recorded as what is called the player’s point and a follow-up throw is required. On follow-up throws, a throw of 7 loses and a throw of the player’s point wins. For anything else, the game continues with the follow-up throw rules.</p>
@@ -707,7 +711,31 @@ function draw2mid() {
 &lt;p&gt;&lt;canvas height="300" id="canvas" width="400"&gt; Your browser doesn't support the HTML5 element canvas. &lt;/canvas&gt; &lt;br&gt; &lt;button onclick="throwdice();"&gt;Throw dice &lt;/button&gt;&lt;/p&gt;
 &lt;form id="f" name="f"&gt;Stage: &lt;input name="stage" type="text" value="First Throw"&gt; Point: &lt;input name="pv" type="text" value="   "&gt; Outcome: &lt;input name="outcome" type="text" value="     "&gt;&lt;/form&gt;</pre>
 <p></p>
-<h2>實習項目四</h2>
+<h3>canvas1</h3>
+<p><canvas height="300" id="canvas" width="400"> Your browser doesn't support the HTML5 element canvas. </canvas></p>
+<script>// <![CDATA[
+var canvas = document.getElementById("canvas");
+var ctx = canvas.getContext('2d');
+
+function draw(){
+ ctx.beginPath();
+ ctx.strokeStyle = "rgb(200,0,0)";
+ ctx.arc(200, 200,50,0,2*Math.PI, false);
+ ctx.stroke();
+}
+
+function clear_canvas(){
+// Store the current transformation matrix
+ctx.save();
+
+// Use the identity matrix while clearing the canvas
+ctx.setTransform(1, 0, 0, 1, 0, 0);
+ctx.clearRect(0, 0, canvas.width, canvas.height);
+// Restore the transform
+ctx.restore();
+}
+// ]]></script>
+<p><button onclick="draw()">繪圖</button> <button onclick="clear_canvas()">清除</button></p><h2>實習項目四</h2>
 <p>多人共同維護 Github Pages 內容, 導入 CMSimfly</p>
 <p>將 CMSimfly 部署到 Github Pages 與 Heroku</p>
 <h2>實習項目五</h2>
