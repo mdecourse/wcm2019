@@ -1211,6 +1211,7 @@ function changeColor()
 <h2>Fossil SCM</h2>
 <p>除了 Git, 您還需要了解如何使用 Fossil SCM, Why?</p>
 <p><a href="https://www.fossil-scm.org">https://www.fossil-scm.org</a> </p>
+<p><a href="/downloads/fossilbook.pdf">fossilbook.pdf</a></p>
 <p>Fossil SCM 簡介: <a href="http://mde.tw/2017springcd/blog/intro-fossil-scm.html">http://mde.tw/2017springcd/blog/intro-fossil-scm.html</a> </p>
 <p>編譯 Fossil SCM: <a href="http://lab.kmol.info/blog/msys2_compile_fossil_scm.html">http://lab.kmol.info/blog/msys2_compile_fossil_scm.html</a> </p>
 <p><a href="http://mde.tw/2017springwcm/blog/2017spring-ubuntu-stunnel-fossil.html">http://mde.tw/2017springwcm/blog/2017spring-ubuntu-stunnel-fossil.html</a></p>
@@ -1302,7 +1303,25 @@ student_list = student_data.splitlines()
 for student_num in student_list:
     print("  *  [https://cpb.kmol.info/"+student_num+"|"+student_num+"]")</pre>
 <p>已知問題: server cache 在網路連線過程經常丟失, 編輯內容時要先以 ctrl + c 暫存內容後再送出.</p>
-<h1>參考資料</h1>
+<h3>文件檔案管理</h3>
+<h4>文件檔案為何需要管理?</h4>
+<p>這裡所指的文件檔案, 特指適合直接讓使用者閱讀的文字檔案, 而非二位元內容檔案.</p>
+<p>這些文字檔案包含使用手冊、流程說明文件或電腦程式原始碼, 當使用者在建立這些使用手冊、流程說明文件或程式原始碼的過程, 將會產生不同的版本.</p>
+<p>當多名使用者在同一時間或不同時間, 以協同流程編輯建立這些文件檔案時, 若沒有完善管理, 將無法辨識那些內容是在那一時間由那一位作者所建立或修改.</p>
+<p>此外, 單人或多人若僅在各自的固定電腦或移動式筆電中進行文件改版編輯, 一旦這些保全措施較不完善的裝置, 因毀損或丟失後, 這些資料將較難復原.</p>
+<p>因此, 設法讓文件檔案的改版流程不致於混亂, 且不容易丟失, 設法運用近端與雲端電腦的特性, 進行文件版次管理, 成為必要手段.</p>
+<p>2005 年推出的 Git 與 2006 年推出的 Fossil SCM 即是為了解決上述文件檔案管理議題, 而產生的 SCM (Software Configuration Management) 套件.</p>
+<p> 以下將介紹 Fossil SCM的使用.</p>
+<p>使用 Fossil SCM 的第一步, 就是根據所使用的電腦操作系統, 下載單一檔案工具:</p>
+<p><a href="https://www.fossil-scm.org/fossil/uv/download.html">https://www.fossil-scm.org/fossil/uv/download.html</a></p>
+<p>Fossil SCM 在 Windows 10 環境中, 就只是一個 6MB 的 fossil.exe 檔案.</p>
+<p>假如您目前的可攜系統中, 在命令列中執行 fossil 時, 電腦回應:</p>
+<p>'fossil' is not recognized as an internal or external command,<br/>operable program or batch file.</p>
+<p>表示 y:\ 目錄下尚無 fossil.exe, 只要從上述的 download 頁面下載 Windows 版本壓縮檔案, 解開 fossil.exe 放入 y:\ 即可, 利用 fossil version 命令, 確認電腦回應:</p>
+<p>This is fossil version 2.8 [f8d7f76bfd] 2019-02-20 15:01:32 UTC</p>
+<p>接下來就可以利用這個不到 6 MB 的可執行檔案, 測試各種 Fossil SCM 所提供的功能.</p>
+<p>由於我們希望在 Windows 10 的環境中利用 Virtualbox 中的 Ubuntu 18.04-2 建立遠端 Fossil SCM 伺服器系統, 與近端的 fossil.exe 結合運用, 因此使用者下載近端的 fossil.exe 之後, 必須設法取得容量大約 10 GB 的 u1804.vdi 檔案, 以便能夠在同一台 Windows 10 中練習之後的 Fossil SCM 指令. <span style="background-color: #ffffff; color: #ffffff;"><a href="https://drive.google.com/file/d/1yjWQ5e6AGaio2ZvclONKEwIfSMtY2gSz/view?usp=sharing" style="background-color: #ffffff; color: #ffffff;">.</a></span></p>
+<p>此外, 假如希望自行編譯 Windows 10 64 位元下的 fossil.exe, 可以從 <a href="https://www.fossil-scm.org/xfer/uv/download.html">https://www.fossil-scm.org/xfer/uv/download.html</a> 下載最新版本的原始碼, 根據 <a href="http://lab.kmol.info/blog/msys2_compile_fossil_scm.html">http://lab.kmol.info/blog/msys2_compile_fossil_scm.html</a> 中的說明, 製作 fossil.exe.</p><h1>參考資料</h1>
 <h4>常用連結:</h4>
 <p>雲端點名: <a href="https://rollcall.nfu.edu.tw/">https://rollcall.nfu.edu.tw/</a> </p>
 <p>2019wcm 網誌: <a href="https://2019wcm.blogspot.com/">https://2019wcm.blogspot.com/</a> </p>
