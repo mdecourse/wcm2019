@@ -253,7 +253,7 @@ if uwsgi:
     application = flaskapp.app
 else:
     # 表示在近端執行, 以 python3 wsgi.py 執行
-    flaskapp.app.run(host='127.0.0.1', port=9443, debug=True, ssl_context=context)
+    flaskapp.app.run(host='127.0.0.1', port=8443, debug=True, ssl_context=context)
 </t>
 <t tx="amd.20160714230833.1"></t>
 <t tx="amd.20160714230833.16">@app.route('/download/', methods=['GET'])
@@ -1247,6 +1247,9 @@ def logout():
 def savePage():
     """save all pages function"""
     page_content = request.form['page_content']
+    # when element_format : "html", need to remove the annoying comment to prevent brython exec
+    page_content = [w.replace('// &lt;![CDATA[', '') for w in page_content]
+    page_content = [w.replace('// ]]&gt;', '') for w in page_content]
     # check if administrator
     if not isAdmin():
         return redirect("/login")
@@ -1266,6 +1269,9 @@ def savePage():
 def ssavePage():
     """seperate save page function"""
     page_content = request.form['page_content']
+    # when element_format : "html", need to remove the annoying comment to prevent brython exec
+    page_content = page_content.replace('// &lt;![CDATA[', '')
+    page_content = page_content.replace('// ]]&gt;', '')
     page_order = request.form['page_order']
     if not isAdmin():
         return redirect("/login")
