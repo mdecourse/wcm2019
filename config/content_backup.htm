@@ -928,12 +928,6 @@ doc['button'].bind('click',setgearnumber)
 <p></p>
 <h3>Cango Library</h3>
 <p><a href="https://www.arc.id.au/GearDrawing.html">https://www.arc.id.au/GearDrawing.html</a></p>
-<h4>Introduction</h4>
-<p>Spur gear tooth profiles are shaped as circle involute curves. The involute is generated from its base circle as if a taut line were unwound from the circumference, the end of that line would describe a circle involute. The involute is a transcendental function usually drawn by calculating coordinates of many points along the curve and plotting straight line segments between them.</p>
-<p>In an effort to simplify the drafting of circular involute functions, Fumitaka Higuchi et al [<a href="/downloads/Approximation_of_involute_curves_for_CAD-system_pr.pdf">1</a>] developed a method of approximating the involute using Bézier curves. The result is a smooth, quite accurate approximation, suitable for CAD. The Bézier curve is defined by just a few control points and maintains it shape under 3D transformation. This greatly reduces the computational load required for drafting.</p>
-<p>Set out here is a brief description of the Higuchi method, along with a JavaScript implementation. The accuracy of the approximation is calculated and examples of drawing gears with the Bézier curves are shown.</p>
-<h4>Circle involute parametric equations</h4>
-<p>Fig 1 shows a graphical representation of how the involute profile for a gear tooth is generated. Click on the red dot and drag the 'taut' line as it unwraps from the blue base circle. The dot traces out a circle involute.</p>
 <p><a href="/downloads/Approximation_of_involute_curves_for_CAD-system_pr.pdf">Approximation_of_involute_curves_for_CAD-system_pr.pdf</a></p>
 <p></p>
 <script src="/static/Cango-13v16-min.js" type="text/javascript"></script>
@@ -1970,9 +1964,11 @@ function distanceFromCurve(pt, bezNodes)
 </div>
 <!-- consoleBezel --></div>
 <!-- consoleHolder --><h2>實習項目四</h2>
-<p>多人共同維護 Github Pages 內容, 導入 CMSimfly</p>
-<p>將 CMSimfly 部署到 Github Pages 與 Heroku</p>
-<h2>實習項目五</h2>
+<ol>
+<li>多人共同維護 Github Pages 內容, 導入 CMSimfly</li>
+<li>將 CMSimfly 部署到 Github Pages 與 Heroku</li>
+<li>可以多人直接在 Github 倉儲中維護的 <a href="https://mde.tw/webots/index.html?book=guide-zh_TW">https://mde.tw/webots/index.html?book=guide-zh_TW</a> (從 <a href="https://github.com/omichel/webots">https://github.com/omichel/webots</a> clone 倉儲內容, 將 docs 目錄設為 Github Pages, 修改 docs 目錄下的 .gitignores 與 js/viewer.js, 倉儲位置: <a href="https://github.com/mdecourse/webots">https://github.com/mdecourse/webots</a>)</li>
+</ol><h2>實習項目五</h2>
 <p>以 Leo Editor 管理 Reveal (協同簡報) 與 Pelican blog (協同網誌)</p>
 <p>多人協同 CMSimfly  - 利用 Leo Editor 解讀無法自動合併的 content.htm</p>
 <p></p>
