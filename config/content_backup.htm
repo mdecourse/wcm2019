@@ -1963,12 +1963,184 @@ function distanceFromCurve(pt, bezNodes)
 <div class="buttonHolder" style="margin-left: 70%; grid-template-columns: 1fr 1fr;"><button class="buttonLink" onclick="consoleBtns4.f1()" type="button">PLAY</button> <button class="buttonLink" onclick="consoleBtns4.f2()" type="button">PAUSE</button></div>
 </div>
 <!-- consoleBezel --></div>
-<!-- consoleHolder --><h2>實習項目四</h2>
+<!-- consoleHolder -->
+<h3>two.js</h3>
+<p><a href="https://github.com/jonobr1/two.js">https://github.com/jonobr1/two.js</a></p>
+<script src="/static/two.min.js"></script>
+<hr/>
+<p>draw-shape</p>
+<div id="draw-shapes"></div>
+<div>上述繪圖程式碼:</div>
+<div>
+<pre class="brush:html;auto-links:false;toolbar:false" contenteditable="false">&lt;div id="draw-shapes"&gt;&lt;/div&gt;
+&lt;script&gt;
+// Make an instance of two and place it on the page.
+var elem = document.getElementById('draw-shapes');
+var params = { width: 285, height: 200 };
+var two = new Two(params).appendTo(elem);
+
+// two has convenience methods to create shapes.
+var circle = two.makeCircle(72, 100, 50);
+var rect = two.makeRectangle(213, 100, 100, 100);
+
+// The object returned has many stylable properties:
+circle.fill = '#FF8000';
+circle.stroke = 'orangered'; // Accepts all valid css color
+circle.linewidth = 5;
+
+rect.fill = 'rgb(0, 200, 255)';
+rect.opacity = 0.75;
+rect.noStroke();
+
+// Don't forget to tell two to render everything
+// to the screen
+two.update();
+&lt;/script&gt;</pre>
+</div>
+<script>
+// Make an instance of two and place it on the page.
+var elem = document.getElementById('draw-shapes');
+var params = { width: 285, height: 200 };
+var two = new Two(params).appendTo(elem);
+
+// two has convenience methods to create shapes.
+var circle = two.makeCircle(72, 100, 50);
+var rect = two.makeRectangle(213, 100, 100, 100);
+
+// The object returned has many stylable properties:
+circle.fill = '#FF8000';
+circle.stroke = 'orangered'; // Accepts all valid css color
+circle.linewidth = 5;
+
+rect.fill = 'rgb(0, 200, 255)';
+rect.opacity = 0.75;
+rect.noStroke();
+
+// Don't forget to tell two to render everything
+// to the screen
+two.update();
+</script>
+<hr/>
+<p>draw-group</p>
+<div id="draw-group">上述繪圖程式碼:</div>
+<div>
+<pre class="brush:html;auto-links:false;toolbar:false" contenteditable="false">&lt;div id="draw-group"&gt;&lt;/div&gt;
+&lt;script&gt;
+var elem = document.getElementById('draw-group');
+var two = new Two({ width: 285, height: 200 }).appendTo(elem);
+
+var circle = two.makeCircle(-70, 0, 50);
+var rect = two.makeRectangle(70, 0, 100, 100);
+circle.fill = '#FF8000';
+circle.stroke = 'orangered';
+rect.fill = 'rgba(0, 200, 255, 0.75)';
+rect.stroke = '#1C75BC';
+
+// Groups can take an array of shapes and/or groups.
+var group = two.makeGroup(circle, rect);
+
+// And have translation, rotation, scale like all shapes.
+group.translation.set(two.width / 2, two.height / 2);
+group.rotation = Math.PI;
+group.scale = 0.75;
+
+// You can also set the same properties a shape have.
+group.linewidth = 7;
+
+two.update();
+&lt;/script&gt;</pre>
+</div>
+<script>
+var elem = document.getElementById('draw-group');
+var two = new Two({ width: 285, height: 200 }).appendTo(elem);
+
+var circle = two.makeCircle(-70, 0, 50);
+var rect = two.makeRectangle(70, 0, 100, 100);
+circle.fill = '#FF8000';
+circle.stroke = 'orangered';
+rect.fill = 'rgba(0, 200, 255, 0.75)';
+rect.stroke = '#1C75BC';
+
+// Groups can take an array of shapes and/or groups.
+var group = two.makeGroup(circle, rect);
+
+// And have translation, rotation, scale like all shapes.
+group.translation.set(two.width / 2, two.height / 2);
+group.rotation = Math.PI;
+group.scale = 0.75;
+
+// You can also set the same properties a shape have.
+group.linewidth = 7;
+
+two.update();
+</script>
+<hr/>
+<p>draw-animation</p>
+<div id="draw-animation">上述繪圖程式碼:</div>
+<div>
+<pre class="brush:html;auto-links:false;toolbar:false" contenteditable="false">&lt;div id="draw-animation"&gt;&lt;/div&gt;
+&lt;script&gt;
+var elem = document.getElementById('draw-animation');
+var two = new Two({ width: 285, height: 200 }).appendTo(elem);
+
+var circle = two.makeCircle(-70, 0, 50);
+var rect = two.makeRectangle(70, 0, 100, 100);
+circle.fill = '#FF8000';
+rect.fill = 'rgba(0, 200, 255, 0.75)';
+
+var group = two.makeGroup(circle, rect);
+group.translation.set(two.width / 2, two.height / 2);
+group.scale = 0;
+group.noStroke();
+
+// Bind a function to scale and rotate the group
+// to the animation loop.
+two.bind('update', function(frameCount) {
+  // This code is called everytime two.update() is called.
+  // Effectively 60 times per second.
+  if (group.scale &gt; 0.9999) {
+    group.scale = group.rotation = 0;
+  }
+  var t = (1 - group.scale) * 0.125;
+  group.scale += t;
+  group.rotation += t * 4 * Math.PI;
+}).play();  // Finally, start the animation loop
+&lt;/script&gt;</pre>
+</div>
+<script>
+var elem = document.getElementById('draw-animation');
+var two = new Two({ width: 285, height: 200 }).appendTo(elem);
+
+var circle = two.makeCircle(-70, 0, 50);
+var rect = two.makeRectangle(70, 0, 100, 100);
+circle.fill = '#FF8000';
+rect.fill = 'rgba(0, 200, 255, 0.75)';
+
+var group = two.makeGroup(circle, rect);
+group.translation.set(two.width / 2, two.height / 2);
+group.scale = 0;
+group.noStroke();
+
+// Bind a function to scale and rotate the group
+// to the animation loop.
+two.bind('update', function(frameCount) {
+  // This code is called everytime two.update() is called.
+  // Effectively 60 times per second.
+  if (group.scale > 0.9999) {
+    group.scale = group.rotation = 0;
+  }
+  var t = (1 - group.scale) * 0.125;
+  group.scale += t;
+  group.rotation += t * 4 * Math.PI;
+}).play();  // Finally, start the animation loop
+</script><h2>實習項目四</h2>
 <ol>
 <li>多人共同維護 Github Pages 內容, 導入 CMSimfly</li>
 <li>將 CMSimfly 部署到 Github Pages 與 Heroku</li>
 <li>可以多人直接在 Github 倉儲中維護的 <a href="https://mde.tw/webots/index.html?book=guide-zh_TW">https://mde.tw/webots/index.html?book=guide-zh_TW</a> (從 <a href="https://github.com/omichel/webots">https://github.com/omichel/webots</a> clone 倉儲內容, 將 docs 目錄設為 Github Pages, 修改 docs 目錄下的 .gitignores 與 js/viewer.js, 倉儲位置: <a href="https://github.com/mdecourse/webots">https://github.com/mdecourse/webots</a>)</li>
-</ol><h2>實習項目五</h2>
+</ol>
+<h4>參考資料</h4>
+<p><a href="https://github.com/showdownjs/showdown">https://github.com/showdownjs/showdown</a> </p><h2>實習項目五</h2>
 <p>以 Leo Editor 管理 Reveal (協同簡報) 與 Pelican blog (協同網誌)</p>
 <p>多人協同 CMSimfly  - 利用 Leo Editor 解讀無法自動合併的 content.htm</p>
 <p></p>
