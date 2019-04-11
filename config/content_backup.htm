@@ -38,7 +38,10 @@
 <p>因此, IBM 才與紐約地區的公立高中合作, 從 Grade 9 (國中三年級) 到 Grade 14 (大學二年級), 安排由高中、大學與企業等三方提供師資, 規劃六年課程, 縮減原先高中的課程, 允許學生到鄰近科技大學選修特定課程, 且在最後大學兩年免學費外, 還安排至企業實習,  畢業後取得高中學歷與副學士學位, 可優先進入合作企業的公司工作.</p>
 <h4>P-Tech 學程 Q&amp;A</h4>
 <p><a href="https://www.ptechnyc.org/domain/31">https://www.ptechnyc.org/domain/31</a> </p>
-<h2>C-K and future job</h2>
+<h4>其他相關資料</h4>
+<p><a href="/downloads/五專優先免試入學辦理現況與建議.pdf">五專優先免試入學辦理現況與建議.pdf</a></p>
+<p><a href="/downloads/五專恢復招生弊多於利－以機械科系為例.pdf">五專恢復招生弊多於利－以機械科系為例.pdf</a></p>
+<p></p><h2>C-K and future job</h2>
 <h4>Concept-Knowledge Design Theory (概念-知識設計理論)</h4>
 <p>C-K theory: <a href="/downloads/The C-K theory_ a model for creativity - Paris Innovation Review.pdf">1</a>, <a href="/downloads/C-K theory_modelling creative thinking and its impact on research.pdf">2</a>, <a href="/downloads/The Engineering Design CK Theory_Contributions and Limits.pdf">3</a>, <a href="/downloads/C-K Theory in Practice_ Lessons from Industrial Applications.pdf">4</a></p>
 <hr/>
@@ -771,7 +774,8 @@ ctx.restore();
 }
 &lt;/script&gt;
 &lt;p&gt;&lt;button onclick="draw()"&gt;繪圖&lt;/button&gt; &lt;button onclick="clear_canvas()"&gt;清除&lt;/button&gt;&lt;/p&gt;</pre>
-<h3>Spur Gear1</h3>
+<h3>Brython</h3>
+<h4>Spur Gear1</h4>
 <p>使用 <a href="https://brython.info/">Brython</a> 繪圖:</p>
 <!-- 導入 Brython 標準程式庫 -->
 <script src="/static/brython.js"></script>
@@ -925,8 +929,297 @@ def setgearnumber(e):
 setgearnumber(True)
 doc['button'].bind('click',setgearnumber)
 </script>
+<p>上述正齒輪繪圖程式碼:</p>
+<pre class="brush:html;auto-links:false;toolbar:false" contenteditable="false">&lt;!-- 導入 Brython 標準程式庫 --&gt;
+&lt;script src="/static/brython.js"&gt;&lt;/script&gt;
+&lt;script src="/static/brython_stdlib.js"&gt;&lt;/script&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;!-- 啟動 Brython --&gt;
+&lt;script&gt;
+window.onload=function(){
+// 設定 data/py 為共用程式路徑
+brython({debug:1, pythonpath:['./../data/py']});
+}
+&lt;/script&gt;
+&lt;p&gt;&lt;canvas height="600" id="onegear" width="800"&gt;&lt;/canvas&gt;&lt;/p&gt;
+&lt;!-- 以下製作 button--&gt;
+&lt;div height="20" id="onegear_div" width="800"&gt;&lt;/div&gt;
+&lt;p&gt;&lt;input id="n" type="text" value="22"&gt;&lt;br&gt; &lt;button id="button"&gt;Set Number of Gears&lt;/button&gt;&lt;/p&gt;
+&lt;!-- 以下實際利用  Brython 繪圖--&gt;
+&lt;script type="text/python3"&gt;
+from browser import document as doc
+import math
+# deg 為角度轉為徑度的轉換因子
+deg = math.pi/180.
+# 定義 Spur 類別
+class Spur(object):
+    def __init__(self, ctx):
+        self.ctx = ctx
+ 
+    def create_line(self, x1, y1, x2, y2, width=3, fill="red"):
+        self.ctx.beginPath()
+        self.ctx.lineWidth = width
+        self.ctx.moveTo(x1, y1)
+        self.ctx.lineTo(x2, y2)
+        self.ctx.strokeStyle = fill
+        self.ctx.stroke()
+ 
+    # 定義一個繪正齒輪的繪圖函式
+    # midx 為齒輪圓心 x 座標
+    # midy 為齒輪圓心 y 座標
+    # rp 為節圓半徑, n 為齒數
+    # pa 為壓力角 (deg)
+    # rot 為旋轉角 (deg)
+    # 已經針對 n 大於等於 52 齒時的繪圖錯誤修正, 因為 base circle 與齒根圓大小必須進行判斷
+    def Gear(self, midx, midy, rp, n=20, pa=20, color="black"):
+        # 齒輪漸開線分成 15 線段繪製
+        imax = 15
+        # 在輸入的畫布上繪製直線, 由圓心到節圓 y 軸頂點畫一直線
+        self.create_line(midx, midy, midx, midy-rp)
+        # a 為模數 (代表公制中齒的大小), 模數為節圓直徑(稱為節徑)除以齒數
+        # 模數也就是齒冠大小
+        a=2*rp/n
+        # d 為齒根大小, 為模數的 1.157 或 1.25倍, 這裡採 1.25 倍
+        d=2.5*rp/n
+        # ra 為齒輪的外圍半徑
+        ra=rp+a
+        # rb 則為齒輪的基圓半徑
+        # 基圓為漸開線長齒之基準圓
+        rb=rp*math.cos(pa*deg)
+        # rd 為齒根圓半徑
+        rd=rp-d
+        # 當 rd 大於 rb 時, 漸開線並非畫至 rb, 而是 rd
+        # dr 則為基圓到齒頂圓半徑分成 imax 段後的每段半徑增量大小
+        # 將圓弧分成 imax 段來繪製漸開線
+        # 當 rd 大於 rb 時, 漸開線並非畫至 rb, 而是 rd
+        if rd&gt;rb:
+            dr = (ra-rd)/imax
+        else:
+            dr=(ra-rb)/imax
+        # tan(pa*deg)-pa*deg 為漸開線函數
+        sigma=math.pi/(2*n)+math.tan(pa*deg)-pa*deg
+        for j in range(n):
+            ang=-2.*j*math.pi/n+sigma
+            ang2=2.*j*math.pi/n+sigma
+            lxd=midx+rd*math.sin(ang2-2.*math.pi/n)
+            lyd=midy-rd*math.cos(ang2-2.*math.pi/n)
+            for i in range(imax+1):
+                # 當 rd 大於 rb 時, 漸開線並非畫至 rb, 而是 rd
+                if rd&gt;rb:
+                    r=rd+i*dr
+                else:
+                    r=rb+i*dr
+                theta=math.sqrt((r*r)/(rb*rb)-1.)
+                alpha=theta-math.atan(theta)
+                xpt=r*math.sin(alpha-ang)
+                ypt=r*math.cos(alpha-ang)
+                xd=rd*math.sin(-ang)
+                yd=rd*math.cos(-ang)
+                # i=0 時, 繪線起點由齒根圓上的點, 作為起點
+                if(i==0):
+                    last_x = midx+xd
+                    last_y = midy-yd
+                # 由左側齒根圓作為起點, 除第一點 (xd,yd) 齒根圓上的起點外, 其餘的 (xpt,ypt)則為漸開線上的分段點
+                self.create_line((midx+xpt),(midy-ypt),(last_x),(last_y),fill=color)
+                # 最後一點, 則為齒頂圓
+                if(i==imax):
+                    lfx=midx+xpt
+                    lfy=midy-ypt
+                last_x = midx+xpt
+                last_y = midy-ypt
+            # the line from last end of dedendum point to the recent
+            # end of dedendum point
+            # lxd 為齒根圓上的左側 x 座標, lyd 則為 y 座標
+            # 下列為齒根圓上用來近似圓弧的直線
+            self.create_line((lxd),(lyd),(midx+xd),(midy-yd),fill=color)
+            for i in range(imax+1):
+                # 當 rd 大於 rb 時, 漸開線並非畫至 rb, 而是 rd
+                if rd&gt;rb:
+                    r=rd+i*dr
+                else:
+                    r=rb+i*dr
+                theta=math.sqrt((r*r)/(rb*rb)-1.)
+                alpha=theta-math.atan(theta)
+                xpt=r*math.sin(ang2-alpha)
+                ypt=r*math.cos(ang2-alpha)
+                xd=rd*math.sin(ang2)
+                yd=rd*math.cos(ang2)
+                # i=0 時, 繪線起點由齒根圓上的點, 作為起點
+                if(i==0):
+                    last_x = midx+xd
+                    last_y = midy-yd
+                # 由右側齒根圓作為起點, 除第一點 (xd,yd) 齒根圓上的起點外, 其餘的 (xpt,ypt)則為漸開線上的分段點
+                self.create_line((midx+xpt),(midy-ypt),(last_x),(last_y),fill=color)
+                # 最後一點, 則為齒頂圓
+                if(i==imax):
+                    rfx=midx+xpt
+                    rfy=midy-ypt
+                last_x = midx+xpt
+                last_y = midy-ypt
+            # lfx 為齒頂圓上的左側 x 座標, lfy 則為 y 座標
+            # 下列為齒頂圓上用來近似圓弧的直線
+            self.create_line(lfx,lfy,rfx,rfy,fill=color)
+canvas = doc['onegear']
+ctx = canvas.getContext("2d")
+ 
+# 以 button 驅動的事件函式
+def setgearnumber(e):
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    x = (canvas.width)/2
+    y = (canvas.height)/2
+    if doc["n"].value.isdigit():
+        n1 = int(doc["n"].value)
+    else:
+        n1= 25
+    # 設定齒輪參數
+    x = (canvas.width)/2
+    y = (canvas.height)/2
+    r = 0.6*(canvas.height/2)
+    pa = 20
+    # 繪出齒輪
+    Spur(ctx).Gear(x, y, r, n1, pa, "blue")
+#判定 button
+setgearnumber(True)
+doc['button'].bind('click',setgearnumber)
+&lt;/script&gt;</pre>
 <p></p>
-<h3>Cango Library</h3>
+<!-- for Brython -->
+<script src="/static/brython.js"></script>
+<script src="/static/brython_stdlib.js"></script>
+<!-- 啟動 brython() -->
+<p>
+<script>
+window.onload=function(){
+brython(1);
+}
+</script>
+</p>
+<!-- 以下利用 Brython 程式執行繪圖 -->
+<p><canvas height="400" id="taiwan_flag" width="600"></canvas></p>
+<p>
+<script type="text/python3">
+# 導入 doc
+from browser import document as doc
+import math
+ 
+# 準備繪圖畫布
+canvas = doc["taiwan_flag"]
+ctx = canvas.getContext("2d")
+# 進行座標轉換, x 軸不變, y 軸反向且移動 canvas.height 單位光點
+# ctx.setTransform(1, 0, 0, -1, 0, canvas.height)
+# 以下採用 canvas 原始座標繪圖
+flag_w = canvas.width
+flag_h = canvas.height
+circle_x = flag_w/4
+circle_y = flag_h/4
+# 先畫滿地紅
+ctx.fillStyle='rgb(255, 0, 0)'
+ctx.fillRect(0,0,flag_w,flag_h)
+# 再畫青天
+ctx.fillStyle='rgb(0, 0, 150)'
+ctx.fillRect(0,0,flag_w/2,flag_h/2)
+# 畫十二道光芒白日
+ctx.beginPath()
+star_radius = flag_w/8
+angle = 0
+for i in range(24):
+    angle += 5*math.pi*2/12
+    toX = circle_x + math.cos(angle)*star_radius
+    toY = circle_y + math.sin(angle)*star_radius
+    # 只有 i 為 0 時移動到 toX, toY, 其餘都進行 lineTo
+    if (i):
+        ctx.lineTo(toX, toY)
+    else:
+        ctx.moveTo(toX, toY)
+ctx.closePath()
+# 將填色設為白色
+ctx.fillStyle = '#fff'
+ctx.fill()
+# 白日:藍圈
+ctx.beginPath()
+ctx.arc(circle_x, circle_y, flag_w*17/240, 0, math.pi*2, True)
+ctx.closePath()
+# 填色設為藍色
+ctx.fillStyle = 'rgb(0, 0, 149)'
+ctx.fill()
+# 白日:白心
+ctx.beginPath()
+ctx.arc(circle_x, circle_y, flag_w/16, 0, math.pi*2, True)
+ctx.closePath()
+# 填色設為白色
+ctx.fillStyle = '#fff'
+ctx.fill()
+</script>
+</p>
+<p>上述國旗繪圖程式碼:</p>
+<pre class="brush:html;auto-links:false;toolbar:false" contenteditable="false">&lt;!-- for Brython --&gt;
+&lt;script src="/static/brython.js"&gt;&lt;/script&gt;
+&lt;script src="/static/brython_stdlib.js"&gt;&lt;/script&gt;
+&lt;!-- 啟動 brython() --&gt;
+&lt;p&gt;
+&lt;script&gt;
+window.onload=function(){
+brython(1);
+}
+&lt;/script&gt;
+&lt;/p&gt;
+&lt;!-- 以下利用 Brython 程式執行繪圖 --&gt;
+&lt;p&gt;&lt;canvas height="400" id="taiwan_flag" width="600"&gt;&lt;/canvas&gt;&lt;/p&gt;
+&lt;p&gt;
+&lt;script type="text/python3"&gt;
+# 導入 doc
+from browser import document as doc
+import math
+ 
+# 準備繪圖畫布
+canvas = doc["taiwan_flag"]
+ctx = canvas.getContext("2d")
+# 進行座標轉換, x 軸不變, y 軸反向且移動 canvas.height 單位光點
+# ctx.setTransform(1, 0, 0, -1, 0, canvas.height)
+# 以下採用 canvas 原始座標繪圖
+flag_w = canvas.width
+flag_h = canvas.height
+circle_x = flag_w/4
+circle_y = flag_h/4
+# 先畫滿地紅
+ctx.fillStyle='rgb(255, 0, 0)'
+ctx.fillRect(0,0,flag_w,flag_h)
+# 再畫青天
+ctx.fillStyle='rgb(0, 0, 150)'
+ctx.fillRect(0,0,flag_w/2,flag_h/2)
+# 畫十二道光芒白日
+ctx.beginPath()
+star_radius = flag_w/8
+angle = 0
+for i in range(24):
+    angle += 5*math.pi*2/12
+    toX = circle_x + math.cos(angle)*star_radius
+    toY = circle_y + math.sin(angle)*star_radius
+    # 只有 i 為 0 時移動到 toX, toY, 其餘都進行 lineTo
+    if (i):
+        ctx.lineTo(toX, toY)
+    else:
+        ctx.moveTo(toX, toY)
+ctx.closePath()
+# 將填色設為白色
+ctx.fillStyle = '#fff'
+ctx.fill()
+# 白日:藍圈
+ctx.beginPath()
+ctx.arc(circle_x, circle_y, flag_w*17/240, 0, math.pi*2, True)
+ctx.closePath()
+# 填色設為藍色
+ctx.fillStyle = 'rgb(0, 0, 149)'
+ctx.fill()
+# 白日:白心
+ctx.beginPath()
+ctx.arc(circle_x, circle_y, flag_w/16, 0, math.pi*2, True)
+ctx.closePath()
+# 填色設為白色
+ctx.fillStyle = '#fff'
+ctx.fill()
+&lt;/script&gt;</pre>
+<p></p><h3>Cango Library</h3>
 <p><a href="https://www.arc.id.au/GearDrawing.html">https://www.arc.id.au/GearDrawing.html</a></p>
 <p><a href="/downloads/Approximation_of_involute_curves_for_CAD-system_pr.pdf">Approximation_of_involute_curves_for_CAD-system_pr.pdf</a></p>
 <p></p>
@@ -2135,7 +2428,340 @@ two.bind('update', function(frameCount) {
   group.scale += t;
   group.rotation += t * 4 * Math.PI;
 }).play();  // Finally, start the animation loop
-</script><h2>實習項目四</h2>
+</script><h3>Konva demo</h3>
+<script src="/static/konva.min.js"></script>
+<div id="container"></div>
+<script>
+var width = window.innerWidth;
+      var height = window.innerHeight;
+
+      // globals
+      var curveLayer, lineLayer, anchorLayer, quad, bezier;
+
+      function updateDottedLines() {
+        var q = quad;
+        var b = bezier;
+
+        var quadLine = lineLayer.findOne('#quadLine');
+        var bezierLine = lineLayer.findOne('#bezierLine');
+
+        quadLine.points([
+          q.start.attrs.x,
+          q.start.attrs.y,
+          q.control.attrs.x,
+          q.control.attrs.y,
+          q.end.attrs.x,
+          q.end.attrs.y
+        ]);
+
+        bezierLine.points([
+          b.start.attrs.x,
+          b.start.attrs.y,
+          b.control1.attrs.x,
+          b.control1.attrs.y,
+          b.control2.attrs.x,
+          b.control2.attrs.y,
+          b.end.attrs.x,
+          b.end.attrs.y
+        ]);
+        lineLayer.draw();
+      }
+      function buildAnchor(x, y) {
+        var anchor = new Konva.Circle({
+          x: x,
+          y: y,
+          radius: 20,
+          stroke: '#666',
+          fill: '#ddd',
+          strokeWidth: 2,
+          draggable: true
+        });
+
+        // add hover styling
+        anchor.on('mouseover', function() {
+          document.body.style.cursor = 'pointer';
+          this.strokeWidth(4);
+          anchorLayer.draw();
+        });
+        anchor.on('mouseout', function() {
+          document.body.style.cursor = 'default';
+          this.strokeWidth(2);
+          anchorLayer.draw();
+        });
+
+        anchor.on('dragend', function() {
+          drawCurves();
+          updateDottedLines();
+        });
+
+        anchorLayer.add(anchor);
+        return anchor;
+      }
+      function drawCurves() {
+        var context = curveLayer.getContext();
+
+        context.clear();
+
+        // draw quad
+        context.beginPath();
+        context.moveTo(quad.start.attrs.x, quad.start.attrs.y);
+        context.quadraticCurveTo(
+          quad.control.attrs.x,
+          quad.control.attrs.y,
+          quad.end.attrs.x,
+          quad.end.attrs.y
+        );
+        context.setAttr('strokeStyle', 'red');
+        context.setAttr('lineWidth', 4);
+        context.stroke();
+
+        // draw bezier
+        context.beginPath();
+        context.moveTo(bezier.start.attrs.x, bezier.start.attrs.y);
+        context.bezierCurveTo(
+          bezier.control1.attrs.x,
+          bezier.control1.attrs.y,
+          bezier.control2.attrs.x,
+          bezier.control2.attrs.y,
+          bezier.end.attrs.x,
+          bezier.end.attrs.y
+        );
+        context.setAttr('strokeStyle', 'blue');
+        context.setAttr('lineWidth', 4);
+        context.stroke();
+      }
+
+      var stage = new Konva.Stage({
+        container: 'container',
+        width: width,
+        height: height
+      });
+
+      anchorLayer = new Konva.Layer();
+      lineLayer = new Konva.Layer();
+
+      // curveLayer just contains a canvas which is drawn
+      // onto with the existing canvas API
+      curveLayer = new Konva.Layer();
+
+      var quadLine = new Konva.Line({
+        dash: [10, 10, 0, 10],
+        strokeWidth: 3,
+        stroke: 'black',
+        lineCap: 'round',
+        id: 'quadLine',
+        opacity: 0.3,
+        points: [0, 0]
+      });
+
+      var bezierLine = new Konva.Line({
+        dash: [10, 10, 0, 10],
+        strokeWidth: 3,
+        stroke: 'black',
+        lineCap: 'round',
+        id: 'bezierLine',
+        opacity: 0.3,
+        points: [0, 0]
+      });
+
+      // add dotted line connectors
+      lineLayer.add(quadLine);
+      lineLayer.add(bezierLine);
+
+      quad = {
+        start: buildAnchor(60, 30),
+        control: buildAnchor(240, 110),
+        end: buildAnchor(80, 160)
+      };
+
+      bezier = {
+        start: buildAnchor(280, 20),
+        control1: buildAnchor(530, 40),
+        control2: buildAnchor(480, 150),
+        end: buildAnchor(300, 150)
+      };
+
+      // keep curves insync with the lines
+      anchorLayer.on('beforeDraw', function() {
+        drawCurves();
+        updateDottedLines();
+      });
+
+      stage.add(curveLayer);
+      stage.add(lineLayer);
+      stage.add(anchorLayer);
+
+      drawCurves();
+      updateDottedLines();
+</script>
+<p>上述繪圖程式碼:</p>
+<pre class="brush:html;auto-links:false;toolbar:false" contenteditable="false">&lt;script src="/static/konva.min.js"&gt;&lt;/script&gt;
+&lt;div id="container"&gt;&lt;/div&gt;
+&lt;script&gt;
+      var width = window.innerWidth;
+      var height = window.innerHeight;
+
+      // globals
+      var curveLayer, lineLayer, anchorLayer, quad, bezier;
+
+      function updateDottedLines() {
+        var q = quad;
+        var b = bezier;
+
+        var quadLine = lineLayer.findOne('#quadLine');
+        var bezierLine = lineLayer.findOne('#bezierLine');
+
+        quadLine.points([
+          q.start.attrs.x,
+          q.start.attrs.y,
+          q.control.attrs.x,
+          q.control.attrs.y,
+          q.end.attrs.x,
+          q.end.attrs.y
+        ]);
+
+        bezierLine.points([
+          b.start.attrs.x,
+          b.start.attrs.y,
+          b.control1.attrs.x,
+          b.control1.attrs.y,
+          b.control2.attrs.x,
+          b.control2.attrs.y,
+          b.end.attrs.x,
+          b.end.attrs.y
+        ]);
+        lineLayer.draw();
+      }
+      function buildAnchor(x, y) {
+        var anchor = new Konva.Circle({
+          x: x,
+          y: y,
+          radius: 20,
+          stroke: '#666',
+          fill: '#ddd',
+          strokeWidth: 2,
+          draggable: true
+        });
+
+        // add hover styling
+        anchor.on('mouseover', function() {
+          document.body.style.cursor = 'pointer';
+          this.strokeWidth(4);
+          anchorLayer.draw();
+        });
+        anchor.on('mouseout', function() {
+          document.body.style.cursor = 'default';
+          this.strokeWidth(2);
+          anchorLayer.draw();
+        });
+
+        anchor.on('dragend', function() {
+          drawCurves();
+          updateDottedLines();
+        });
+
+        anchorLayer.add(anchor);
+        return anchor;
+      }
+      function drawCurves() {
+        var context = curveLayer.getContext();
+
+        context.clear();
+
+        // draw quad
+        context.beginPath();
+        context.moveTo(quad.start.attrs.x, quad.start.attrs.y);
+        context.quadraticCurveTo(
+          quad.control.attrs.x,
+          quad.control.attrs.y,
+          quad.end.attrs.x,
+          quad.end.attrs.y
+        );
+        context.setAttr('strokeStyle', 'red');
+        context.setAttr('lineWidth', 4);
+        context.stroke();
+
+        // draw bezier
+        context.beginPath();
+        context.moveTo(bezier.start.attrs.x, bezier.start.attrs.y);
+        context.bezierCurveTo(
+          bezier.control1.attrs.x,
+          bezier.control1.attrs.y,
+          bezier.control2.attrs.x,
+          bezier.control2.attrs.y,
+          bezier.end.attrs.x,
+          bezier.end.attrs.y
+        );
+        context.setAttr('strokeStyle', 'blue');
+        context.setAttr('lineWidth', 4);
+        context.stroke();
+      }
+
+      var stage = new Konva.Stage({
+        container: 'container',
+        width: width,
+        height: height
+      });
+
+      anchorLayer = new Konva.Layer();
+      lineLayer = new Konva.Layer();
+
+      // curveLayer just contains a canvas which is drawn
+      // onto with the existing canvas API
+      curveLayer = new Konva.Layer();
+
+      var quadLine = new Konva.Line({
+        dash: [10, 10, 0, 10],
+        strokeWidth: 3,
+        stroke: 'black',
+        lineCap: 'round',
+        id: 'quadLine',
+        opacity: 0.3,
+        points: [0, 0]
+      });
+
+      var bezierLine = new Konva.Line({
+        dash: [10, 10, 0, 10],
+        strokeWidth: 3,
+        stroke: 'black',
+        lineCap: 'round',
+        id: 'bezierLine',
+        opacity: 0.3,
+        points: [0, 0]
+      });
+
+      // add dotted line connectors
+      lineLayer.add(quadLine);
+      lineLayer.add(bezierLine);
+
+      quad = {
+        start: buildAnchor(60, 30),
+        control: buildAnchor(240, 110),
+        end: buildAnchor(80, 160)
+      };
+
+      bezier = {
+        start: buildAnchor(280, 20),
+        control1: buildAnchor(530, 40),
+        control2: buildAnchor(480, 150),
+        end: buildAnchor(300, 150)
+      };
+
+      // keep curves insync with the lines
+      anchorLayer.on('beforeDraw', function() {
+        drawCurves();
+        updateDottedLines();
+      });
+
+      stage.add(curveLayer);
+      stage.add(lineLayer);
+      stage.add(anchorLayer);
+
+      drawCurves();
+      updateDottedLines();
+    
+&lt;/script&gt;</pre>
+<p></p><h2>實習項目四</h2>
 <ol>
 <li>多人共同維護 Github Pages 內容, 導入 CMSimfly</li>
 <li>將 CMSimfly 部署到 Github Pages 與 Heroku</li>
@@ -2730,6 +3356,7 @@ for student_num in student_list:
 <p>此外, 假如希望自行編譯 Windows 10 64 位元下的 fossil.exe, 可以從 <a href="https://www.fossil-scm.org/xfer/uv/download.html">https://www.fossil-scm.org/xfer/uv/download.html</a> 下載最新版本的原始碼, 根據 <a href="http://lab.kmol.info/blog/msys2_compile_fossil_scm.html">http://lab.kmol.info/blog/msys2_compile_fossil_scm.html</a> 中的說明, 製作 fossil.exe.</p><h2>自動控制</h2>
 <p><a href="/downloads/MAGNETIC LEVITATION SYSTEM IN CONTROL ENGINEERING EDUCATION.pdf">MAGNETIC LEVITATION SYSTEM IN CONTROL ENGINEERING EDUCATION.pdf</a></p>
 <p><a href="/downloads/MODELLING_AND_SIMULATION_OF_A_MAGNETIC_LEVITATION_.pdf">MODELLING_AND_SIMULATION_OF_A_MAGNETIC_LEVITATION_.pdf</a></p>
+<p><a href="/downloads/magnetic levitation system simulation.pdf">magnetic levitation system simulation.pdf</a></p>
 <p><a href="http://brm.io/matter-js/">http://brm.io/matter-js/</a> </p>
 <p><a href="https://github.com/liabru/matter-js">https://github.com/liabru/matter-js</a></p>
 <h4>The Quadratic Formula</h4>
