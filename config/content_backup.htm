@@ -263,7 +263,74 @@ exit $ret</pre>
 <p><span>ungit --launchBrowser=0 --launchCommand "C:\PROGRA~2\Google\Chrome\Application\chrome.exe  %%U"</span></p>
 <p><span>並以 SciTE 編輯器存入 Y:\kungit.bat 批次檔案中, 當使用者以命令列進入特定倉儲時, 只要輸入 kungit 即可呼叫此一 ungit 指令執行.</span></p>
 <p>上述以批次檔案執行的 %%U, 表示要在 Windows command 中列出 %U, 因為 "%" 符號在批次檔案中具有特定意義, 因此要在批次檔案中列出 "%", 必須使用 "%%", 其他相關詳細說明, 請參考 <a href="https://ss64.com/nt/syntax-esc.html">https://ss64.com/nt/syntax-esc.html</a> </p>
-<h3>Git 設定</h3>
+<h3>ANSI C</h3>
+<h4>KMOL 2019 Spring 所採用的可攜程式環境:</h4>
+<p><a href="https://drive.google.com/file/d/1_TQBw1PM7jxrmtsBjvLKbjJWfGs8Ug79/view?usp=sharing">cdb_w5 版本.7z</a><span><span> </span>(470 MB, 解開後 1.3 GB, wcm 與 cd 課程共用版本)<span> </span></span></p>
+<p>KMOL 課程 (指計算機程式、網際內容管理、電腦輔助設計實習與協同產品設計實習) 所使用的可攜系統中, 採用 <a href="https://bellard.org/tcc/">Tiny C</a> 作為 ANSIC 程式編譯系統, 且透過 SciTE 編輯器的設定, 讓 ANSI C 程式的執行與解譯程式 (如 Python 與 Lua) 類似, 可以直接在 SciTE 編輯器中執行簡單的運算程式, 或利用 <a href="https://bellard.org/tcc/">Tiny C</a> 將 C 程式編譯為 Python  或 Lua 可以呼叫的動態程式庫.</p>
+<p>由於 ANSI C 程式編譯後執行的速度遠快於 Python 或 Lua, 但是利用解譯程式呼叫動態連結庫的方式進行數值分析運算, 可以同時取得調控彈性高與執行速度快的好處, 因此 KMOL 才將可攜程式套件以 <a href="https://bellard.org/tcc/">Tiny C</a> 結合 Python3 與 Lua 5.1.5 的方式進行配置.</p>
+<p>以下為 <a href="https://bellard.org/tcc/">Tiny C</a> 的相關應用:</p>
+<h4>利用 Tiny C 編譯 Tiny C</h4>
+<p>使用者可以從 <a href="http://download.savannah.gnu.org/releases/tinycc/">http://download.savannah.gnu.org/releases/tinycc/</a> 下載 tcc-0.9.27.tar.bz2, 也就是 0.9.27 版的 Tiny C 編譯程式原始碼, 然後利用 KMOL 可攜程式中的 <a href="https://bellard.org/tcc/">Tiny C</a> 對此 ANSI C程式碼進行編譯, 建立 0.9.27 版的 tcc.exe</p>
+<p>啟動 KMOL 可攜程式後, 在 Dos 命令列中進入 0.9.27 原始碼中的 win32 目錄, 將其中 build-tcc.bat 檔案中的 </p>
+<p>      set CC=gcc</p>
+<p>改為</p>
+<p>     set CC=tcc</p>
+<p>然後執行此一 build-tcc.bat 檔案, 就可以編譯出所需的 tcc.exe, libtcc.dll 與 i386-win32-tcc.exe 等三個檔案.</p>
+<h4>利用 ANSI C 編寫 Python 3 呼叫用 dll</h4>
+<p>首先, 建立一個 multiply.c 程式:</p>
+<pre class="brush:cpp;auto-links:false;toolbar:false" contenteditable="false">#include &lt;stdio.h&gt;
+ 
+int multiply(int, int);
+ 
+__declspec(dllexport) int
+multiply(int num1, int num2)
+{
+return num1 * num2;
+}</pre>
+<div>
+<div class="syntaxhighlighter c" id="highlighter_631405"></div>
+</div>
+<p>利用下列指令, 將 multiply.c 編譯為動態連結庫 myltiply.dll</p>
+<p>tcc -w -shared -DLIBTCC_AS_DLL -DONE_SOURCE multiply.c -o multiply.dll</p>
+<p>接著利用下列 Python3 程式, 透過 ctypes 模組導入 multiply.dll, 並且執行動態連結程式庫中的 multiply() 函式.</p>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">import ctypes
+ 
+lib = ctypes.CDLL('multiply.dll')
+result = lib.multiply(3, 2)
+print(result)</pre>
+<div>
+<div class="syntaxhighlighter python" id="highlighter_374291"></div>
+</div>
+<p>因為<span> </span><a href="https://docs.python.org/3/library/ctypes.html">ctypes</a><span> </span>內建傳回值為 int, 因此若 C 對應動態連結庫輸入或傳回值為浮點數, 就必須手動宣告.</p>
+<p>例如, 將上述函式的輸入與輸出均由 int 改為 float 如下:</p>
+<pre class="brush:cpp;auto-links:false;toolbar:false" contenteditable="false">// multiply2.c
+#include &lt;stdio.h&gt;
+ 
+float multiply(float, float);
+ 
+__declspec(dllexport) float
+multiply(float num1, float num2)
+{
+return num1 * num2;
+}</pre>
+<div>
+<div class="syntaxhighlighter c" id="highlighter_489981"></div>
+</div>
+<p>可利用下列指令, 將 multiply2.c 編譯為動態連結庫 myltiply2.dll</p>
+<p>tcc -w -shared -DLIBTCC_AS_DLL -DONE_SOURCE multiply2.c -o multiply2.dll</p>
+<p>但是 Python3 程式部份就必須改為:</p>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">import ctypes
+ 
+lib = ctypes.CDLL('multiply2.dll')
+# By default functions are assumed to return the C int type. Other return types can be specified by setting the restype attribute of the function object.
+lib.multiply.restype = ctypes.c_float
+result = lib.multiply(ctypes.c_float(3.0), ctypes.c_float(2.0))
+print(result)</pre>
+<div>
+<div class="syntaxhighlighter python" id="highlighter_532977"></div>
+</div>
+<p>另外一個有趣的應用, 就是利用 <a href="https://bellard.org/tcc/">Tiny C</a> 編譯 <a href="https://www.fossil-scm.org">Fossil SCM</a></p>
+<p>因為 <a href="https://www.fossil-scm.org">Fossil SCM</a> 也是採用 ANSI C 格式編寫, 因此從 <a href="https://www.mail-archive.com/fossil-users@lists.fossil-scm.org/msg11086.html">https://www.mail-archive.com/fossil-users@lists.fossil-scm.org/msg11086.html</a> 與 <a href="http://lists.nongnu.org/archive/html/tinycc-devel/2014-03/msg00086.html">http://lists.nongnu.org/archive/html/tinycc-devel/2014-03/msg00086.html</a> 討論中, 可以利用 <a href="https://bellard.org/tcc/">Tiny C</a><span><span> </span></span> 編譯 <a href="https://www.fossil-scm.org">Fossil SCM</a><span><span> , 但是僅能在 Linux 環境, </span></span> Windows 10 上的 <a href="https://www.fossil-scm.org">Fossil SCM</a>, 則可使用 <a href="https://www.msys2.org/">MSYS2</a> (<a href="http://lab.kmol.info/blog/msys2_compile_fossil_scm.html">http://lab.kmol.info/blog/msys2_compile_fossil_scm.html</a>)</p><h3>Git 設定</h3>
 <p><span>使用</span><br/><br/><span>git config --edit --system</span><br/><br/><span>可以帶出 vi 編輯器, 編輯 git 指令所使用的系統設定, 只要將 credential 項目中的 helper = manager 刪除後儲存, 即可關閉內定將使用者 Github 帳號密碼儲存於操作系統的問題.</span><br/><br/><span>建立 OpenSSH 格式的 Private 與 Public Keys</span><br/><br/><span>接下來, 在可攜系統的命令列視窗中, 以 sh 執行 Git 的 shell, 使用</span><br/><br/><span>ssh-keygen -t rsa -b 4096 -C "This is my key"</span><br/><br/><span>建立位於 y:\home\.ssh\id_rsa 的 Private Key 與位於 y:\home\.ssh\id_rsa.pub 的 Public Key, 並且將 id_rsa.pub 的內容, 轉貼到 Github 帳號 settings 中 SSH and GPG keys 項目內的 SSH Public Key 區.</span><br/><br/><span>使用 ssh 協定執行 git clone</span><br/><br/><span>為了採用 OpenSSH 協定執行登入認證, 使用者在近端 git clone 倉儲時, 必須使用類似 git@github.com:帳號/倉儲.git 的連線 URL</span><br/><br/><span>例如:<span> </span></span><br/><br/><span>要將<span> </span></span><a href="https://github.com/mdecourse/wcm2019">https://github.com/mdecourse/wcm2019</a><span><span> </span>的倉儲, 以 ssh 協定 git clone 到近端時, 必須使用:</span><br/><br/><span>git clone git@github.com:mdecourse/wcm2019.git</span><br/><br/><span>建立位於 wcm2019 的倉儲目錄, 而 git add ., git commit -m 與 git push 的指令則與採 http 連線時的指令相同. 只是採用 ssh 連線下的 git push, git 會讀取位於 y:\home\.ssh\id_rsa Private Key 與 Github 帳號上所設定的 Public Key 進行比對, 若同為一個 pair, 則通過認證, 可將改版的資料推送到遠端倉儲中.</span><br/><br/><span>上述 ssh 協定下的 git clone 與 git push, 配合 ungit 使用時, 可以直接輸入提交訊息後, 以 commit &amp; push 將近端版本提交推送到遠端.</span><br/><br/><span>ssh 連線透過 proxy server, 必須設定 y:\home\.ssh\config 如下:</span></p>
 <pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false">ProxyCommand y:/PortableGit/mingw64/bin/connect.exe -H proxy_server_name:3128 %h %p
  
@@ -290,8 +357,7 @@ IdentitiesOnly yes</pre>
 <ol>
 <li>Github 原先 Clone or Download 按鈕下提供 https 與 ssh 等兩種連線協定, 但是目前已去除倉儲中的 ssh 連結, 原因不明.</li>
 <li>上述 ssh 以系上 proxy server 作為跳板, 進行 Github 倉儲連線後, 該代理主機被校網防火牆判定為 IPS 攻擊而斷線, 具體原因亦不明.</li>
-</ol>
-<h3>Blogger API</h3>
+</ol><h3>Blogger API</h3>
 <p>Blogger: <a href="https://www.blogger.com">https://www.blogger.com</a></p>
 <p><a href="https://developers.google.com/blogger/">https://developers.google.com/blogger/</a></p>
 <p><a href="https://pypi.org/project/google-api-python-client/">https://pypi.org/project/google-api-python-client/</a></p>
@@ -2258,6 +2324,7 @@ function distanceFromCurve(pt, bezNodes)
 <!-- consoleBezel --></div>
 <!-- consoleHolder -->
 <h3>Ball</h3>
+<p><a href="https://github.com/Rafidhasan/moving-ball">https://github.com/Rafidhasan/moving-ball</a> </p>
 <script>
 class Ball {
 	constructor(radius, color) {
