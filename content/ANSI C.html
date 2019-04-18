@@ -96,6 +96,59 @@ $(document).ready(doSearch);
 <p>改為</p>
 <p>     set CC=tcc</p>
 <p>然後執行此一 build-tcc.bat 檔案, 就可以編譯出所需的 tcc.exe, libtcc.dll 與 i386-win32-tcc.exe 等三個檔案.</p>
+<h4>利用 ANSI C 程式解數值分析</h4>
+<p>參考資料: </p>
+<p><a href="http://mde.tw/cp2018/content/數值分析.html">http://mde.tw/cp2018/content/數值分析.html</a></p>
+<p><a href="https://github.com/libsbmlsim/libsbmlsim">https://github.com/libsbmlsim/libsbmlsim</a> (<a href="https://fun.bio.keio.ac.jp/software/libsbmlsim/">libsbmlsim</a>)</p>
+<p><a href="http://sbml.org/Basic_Introduction_to_SBML">http://sbml.org/Basic_Introduction_to_SBML</a></p>
+<p>以 <a href="https://en.wikipedia.org/wiki/Runge%E2%80%93Kutta_methods">Runge-Kutta</a> 解常微分方程式:</p>
+<pre class="brush:cpp;auto-links:false;toolbar:false" contenteditable="false">// C program to implement Runge Kutta method 
+#include&lt;stdio.h&gt; 
+  
+// A sample differential equation "dy/dx = (x - y)/2" 
+float dydx(float x, float y) 
+{ 
+    return((x - y)/2); 
+} 
+// Finds value of y for a given x using step size h 
+// and initial value y0 at x0. 
+float rungeKutta(float x0, float y0, float x, float h) 
+{ 
+    // Count number of iterations using step size or 
+    // step height h 
+    int n = (int)((x - x0) / h); 
+  
+    float k1, k2, k3, k4, k5; 
+  
+    // Iterate for number of iterations 
+    float y = y0; 
+    for (int i=1; i&lt;=n; i++) 
+    { 
+        // Apply Runge Kutta Formulas to find 
+        // next value of y 
+        k1 = h*dydx(x0, y); 
+        k2 = h*dydx(x0 + 0.5*h, y + 0.5*k1); 
+        k3 = h*dydx(x0 + 0.5*h, y + 0.5*k2); 
+        k4 = h*dydx(x0 + h, y + k3); 
+  
+        // Update next value of y 
+        y = y + (1.0/6.0)*(k1 + 2*k2 + 2*k3 + k4);; 
+  
+        // Update next value of x 
+        x0 = x0 + h; 
+    } 
+  
+    return y; 
+} 
+
+// Driver method 
+int main() 
+{ 
+    float x0 = 0, y = 1, x = 2, h = 0.2; 
+    printf("\nThe value of y at x is : %f\n", 
+            rungeKutta(x0, y, x, h)); 
+    return 0; 
+} </pre>
 <h4>利用 ANSI C 編寫 Python 3 呼叫用 dll</h4>
 <p>首先, 建立一個 multiply.c 程式:</p>
 <pre class="brush:cpp;auto-links:false;toolbar:false" contenteditable="false">#include &lt;stdio.h&gt;
@@ -149,5 +202,26 @@ print(result)</pre>
 <div>
 <div class="syntaxhighlighter python" id="highlighter_532977"></div>
 </div>
+<h4>導入 tinycc 模組</h4>
+<p>除了直接利用 Tiny C 編譯能讓 Python 3 呼叫的動態連結程式庫外, 也可以導入 <a href="https://github.com/SasView/tinycc">https://github.com/SasView/tinycc</a> (<a href="./../downloads/tinycc-1.1.zip">tinycc-1.1.zip</a>), 並將 tcc.exe 所在目錄設於啟動批次檔案中:</p>
+<p>set TCC_ROOT=%Disk%:\tcc</p>
+<p>之後使用者就能利用:</p>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">from tinycc import compile
+dll_path = compile("multiply.c")</pre>
+<p>建立所需的 multiply.dll, 其中 multiply.c 內容:</p>
+<pre class="brush:cpp;auto-links:false;toolbar:false" contenteditable="false">#include &lt;stdio.h&gt;
+ 
+int multiply(int, int);
+ 
+int multiply(int num1, int num2)
+{
+    return num1 * num2;
+}</pre>
+<p>而對應的 multiply.py 內容如下:</p>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">import ctypes
+ 
+lib = ctypes.CDLL('multiply.dll')
+result = lib.multiply(3, 2)
+print(result)</pre>
 <h4>另外一個有趣的應用, 就是利用 <a href="https://bellard.org/tcc/">Tiny C</a> 編譯 <a href="https://www.fossil-scm.org">Fossil SCM</a></h4>
 <p>因為 <a href="https://www.fossil-scm.org">Fossil SCM</a> 也是採用 ANSI C 格式編寫, 因此從 <a href="https://www.mail-archive.com/fossil-users@lists.fossil-scm.org/msg11086.html">https://www.mail-archive.com/fossil-users@lists.fossil-scm.org/msg11086.html</a> 與 <a href="http://lists.nongnu.org/archive/html/tinycc-devel/2014-03/msg00086.html">http://lists.nongnu.org/archive/html/tinycc-devel/2014-03/msg00086.html</a> 討論中, 可以利用 <a href="https://bellard.org/tcc/">Tiny C</a><span><span> </span></span> 編譯 <a href="https://www.fossil-scm.org">Fossil SCM</a><span><span> , 但是僅能在 Linux 環境, </span></span> Windows 10 上的 <a href="https://www.fossil-scm.org">Fossil SCM</a>, 則可使用 <a href="https://www.msys2.org/">MSYS2</a> (<a href="http://lab.kmol.info/blog/msys2_compile_fossil_scm.html">http://lab.kmol.info/blog/msys2_compile_fossil_scm.html</a>)</p><br />實習項目二 << <a href='實習項目二.html'>Previous</a> <a href='Git 設定.html'>Next</a> >> Git 設定</div></section></div></body></html>
