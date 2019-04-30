@@ -2529,7 +2529,6 @@ init_mathjax = function() {
 }
 init_mathjax();
 &lt;/script&gt;
---&gt;
 &lt;!-- 暫時不用
 &lt;script src="./../static/fengari-web.js"&gt;&lt;/script&gt;
 &lt;script type="text/javascript" src="./../static/Cango-13v08-min.js"&gt;&lt;/script&gt;
