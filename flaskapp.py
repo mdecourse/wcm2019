@@ -1677,9 +1677,7 @@ def render_menu2(head, level, page, sitemap=0):
                 <h1>''' + site_title + '''</h1>
                 <div class="pl-4">
                     <form>
-                    <div class="tipue_search_group">
-                    <input type="text" name="q" id="tipue_search_input" pattern=".{2,}" title="At least 2 characters" required><button type="submit" class="tipue_search_button"><div class="tipue_search_icon">&#9906;</div></button>
-                    </div>
+                    <input type="text" placeholder="Search" name="q" id="tipue_search_input" pattern=".{2,}" title="At least 2 characters" required>
                     </form>
                 </div>
                   <!-- <div class="col-11 col-xl-2">

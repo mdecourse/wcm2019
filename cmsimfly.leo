@@ -3019,9 +3019,7 @@ js 與 css, fonts, scss 位於 /static/chimper 目錄中
                 &lt;h1&gt;''' + site_title + '''&lt;/h1&gt;
                 &lt;div class="pl-4"&gt;
                     &lt;form&gt;
-                    &lt;div class="tipue_search_group"&gt;
-                    &lt;input type="text" name="q" id="tipue_search_input" pattern=".{2,}" title="At least 2 characters" required&gt;&lt;button type="submit" class="tipue_search_button"&gt;&lt;div class="tipue_search_icon"&gt;&amp;#9906;&lt;/div&gt;&lt;/button&gt;
-                    &lt;/div&gt;
+                    &lt;input type="text" placeholder="Search" name="q" id="tipue_search_input" pattern=".{2,}" title="At least 2 characters" required&gt;
                     &lt;/form&gt;
                 &lt;/div&gt;
                   &lt;!-- &lt;div class="col-11 col-xl-2"&gt;
