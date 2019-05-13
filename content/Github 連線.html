@@ -147,178 +147,73 @@ init_mathjax();
           </div>
           
         </header>
-    <div id="tipue_search_content">Ball << <a href='Ball.html'>Previous</a> <a href='Konva demo.html'>Next</a> >> Konva demo<br /><h1>two.js</h1>
-<p><a href="https://github.com/jonobr1/two.js">https://github.com/jonobr1/two.js</a></p>
-<p>類似程式庫</p>
-<p><a href="https://konvajs.org/">https://konvajs.org/</a> </p>
-<script src="./../static/two.min.js"></script>
-<hr/>
-<p>draw-shape</p>
-<div id="draw-shapes"></div>
-<div>上述繪圖程式碼:</div>
-<div>
-<pre class="brush:html;auto-links:false;toolbar:false" contenteditable="false">&lt;div id="draw-shapes"&gt;&lt;/div&gt;
-&lt;script&gt;
-// Make an instance of two and place it on the page.
-var elem = document.getElementById('draw-shapes');
-var params = { width: 285, height: 200 };
-var two = new Two(params).appendTo(elem);
+    <div id="tipue_search_content">代理主機設定 << <a href='代理主機設定.html'>Previous</a> <a href='C-K and future job.html'>Next</a> >> C-K and future job<br /><h1>Github 連線</h1>
+<p>在近端連線 Github 時可以採用 https 與 SSH 等兩種模式, 採 https 連線, 設定位於 y:\home\.gitconfig, 而採 SSH 連線時, 則設定檔案位於 y:\home\.ssh\config</p>
+<p>參考用的 y:\home\.gitconfig</p>
+<pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false">[user]
+	email = mdecourse@gmail.com
+	name = mdecourse
+#[http]
+	#proxy = http://mdeuser:mdeuser@192.168.1.1:3128
+[merge]
+	tool = kdiff3
+[mergetool "kdiff3"]
+	path = Y:/KDiff3/kdiff3.exe
+[pull]
+	rebase = false
+[fetch]
+	prune = false
+[rebase]
+	autoStash = false
+[diff]
+	guitool = kdiff3
+[difftool "kdiff3"]
+	path = Y:/KDiff3/kdiff3.exe
+[core]
+	editor = \"Y:/GitExtensions/GitExtensions.exe\" fileeditor
+</pre>
+<p></p>
+<p>參考用的 y:\home\.ssh\config</p>
+<pre class="brush:html;auto-links:false;toolbar:false" contenteditable="false"># no proxy at home
+ProxyCommand y:/PortableGit/mingw64/bin/connect.exe -H your_proxy:3128 %h %p
 
-// two has convenience methods to create shapes.
-var circle = two.makeCircle(72, 100, 50);
-var rect = two.makeRectangle(213, 100, 100, 100);
+# for mdecourse
+# url = git@github.com_mdecourse:mdecourse/cmstest.git
+Host github.com_mdecourse
+    User git
+    Port 22
+    Hostname github.com
 
-// The object returned has many stylable properties:
-circle.fill = '#FF8000';
-circle.stroke = 'orangered'; // Accepts all valid css color
-circle.linewidth = 5;
+    IdentityFile "y:\home\.ssh\id_rsa_mdecourse"
 
-rect.fill = 'rgb(0, 200, 255)';
-rect.opacity = 0.75;
-rect.noStroke();
+    TCPKeepAlive yes
+    IdentitiesOnly yes
+    
+# for scrum-1
+# url = git@github.com_scrum-1:scrum-1/cd2019.git
+Host github.com_scrum-1
+    User git
+    Port 22
+    Hostname github.com
 
-// Don't forget to tell two to render everything
-// to the screen
-two.update();
-&lt;/script&gt;</pre>
-</div>
-<script>
-// Make an instance of two and place it on the page.
-var elem = document.getElementById('draw-shapes');
-var params = { width: 285, height: 200 };
-var two = new Two(params).appendTo(elem);
+    IdentityFile "y:\home\.ssh\id_rsa_scrum-1"
 
-// two has convenience methods to create shapes.
-var circle = two.makeCircle(72, 100, 50);
-var rect = two.makeRectangle(213, 100, 100, 100);
+    TCPKeepAlive yes
+    IdentitiesOnly yes
+    
+# for scrum-2
+# url = git@github.com_scrum-2:scrum-2/cd2019b.git
+Host github.com_scrum-2
+    User git
+    Port 22
+    Hostname github.com
 
-// The object returned has many stylable properties:
-circle.fill = '#FF8000';
-circle.stroke = 'orangered'; // Accepts all valid css color
-circle.linewidth = 5;
+    IdentityFile "y:\home\.ssh\id_rsa_scrum-2"
 
-rect.fill = 'rgb(0, 200, 255)';
-rect.opacity = 0.75;
-rect.noStroke();
-
-// Don't forget to tell two to render everything
-// to the screen
-two.update();
-</script>
-<hr/>
-<p>draw-group</p>
-<div id="draw-group">上述繪圖程式碼:</div>
-<div>
-<pre class="brush:html;auto-links:false;toolbar:false" contenteditable="false">&lt;div id="draw-group"&gt;&lt;/div&gt;
-&lt;script&gt;
-var elem = document.getElementById('draw-group');
-var two = new Two({ width: 285, height: 200 }).appendTo(elem);
-
-var circle = two.makeCircle(-70, 0, 50);
-var rect = two.makeRectangle(70, 0, 100, 100);
-circle.fill = '#FF8000';
-circle.stroke = 'orangered';
-rect.fill = 'rgba(0, 200, 255, 0.75)';
-rect.stroke = '#1C75BC';
-
-// Groups can take an array of shapes and/or groups.
-var group = two.makeGroup(circle, rect);
-
-// And have translation, rotation, scale like all shapes.
-group.translation.set(two.width / 2, two.height / 2);
-group.rotation = Math.PI;
-group.scale = 0.75;
-
-// You can also set the same properties a shape have.
-group.linewidth = 7;
-
-two.update();
-&lt;/script&gt;</pre>
-</div>
-<script>
-var elem = document.getElementById('draw-group');
-var two = new Two({ width: 285, height: 200 }).appendTo(elem);
-
-var circle = two.makeCircle(-70, 0, 50);
-var rect = two.makeRectangle(70, 0, 100, 100);
-circle.fill = '#FF8000';
-circle.stroke = 'orangered';
-rect.fill = 'rgba(0, 200, 255, 0.75)';
-rect.stroke = '#1C75BC';
-
-// Groups can take an array of shapes and/or groups.
-var group = two.makeGroup(circle, rect);
-
-// And have translation, rotation, scale like all shapes.
-group.translation.set(two.width / 2, two.height / 2);
-group.rotation = Math.PI;
-group.scale = 0.75;
-
-// You can also set the same properties a shape have.
-group.linewidth = 7;
-
-two.update();
-</script>
-<hr/>
-<p>draw-animation</p>
-<div id="draw-animation">上述繪圖程式碼:</div>
-<div>
-<pre class="brush:html;auto-links:false;toolbar:false" contenteditable="false">&lt;div id="draw-animation"&gt;&lt;/div&gt;
-&lt;script&gt;
-var elem = document.getElementById('draw-animation');
-var two = new Two({ width: 285, height: 200 }).appendTo(elem);
-
-var circle = two.makeCircle(-70, 0, 50);
-var rect = two.makeRectangle(70, 0, 100, 100);
-circle.fill = '#FF8000';
-rect.fill = 'rgba(0, 200, 255, 0.75)';
-
-var group = two.makeGroup(circle, rect);
-group.translation.set(two.width / 2, two.height / 2);
-group.scale = 0;
-group.noStroke();
-
-// Bind a function to scale and rotate the group
-// to the animation loop.
-two.bind('update', function(frameCount) {
-  // This code is called everytime two.update() is called.
-  // Effectively 60 times per second.
-  if (group.scale &gt; 0.9999) {
-    group.scale = group.rotation = 0;
-  }
-  var t = (1 - group.scale) * 0.125;
-  group.scale += t;
-  group.rotation += t * 4 * Math.PI;
-}).play();  // Finally, start the animation loop
-&lt;/script&gt;</pre>
-</div>
-<script>
-var elem = document.getElementById('draw-animation');
-var two = new Two({ width: 285, height: 200 }).appendTo(elem);
-
-var circle = two.makeCircle(-70, 0, 50);
-var rect = two.makeRectangle(70, 0, 100, 100);
-circle.fill = '#FF8000';
-rect.fill = 'rgba(0, 200, 255, 0.75)';
-
-var group = two.makeGroup(circle, rect);
-group.translation.set(two.width / 2, two.height / 2);
-group.scale = 0;
-group.noStroke();
-
-// Bind a function to scale and rotate the group
-// to the animation loop.
-two.bind('update', function(frameCount) {
-  // This code is called everytime two.update() is called.
-  // Effectively 60 times per second.
-  if (group.scale > 0.9999) {
-    group.scale = group.rotation = 0;
-  }
-  var t = (1 - group.scale) * 0.125;
-  group.scale += t;
-  group.rotation += t * 4 * Math.PI;
-}).play();  // Finally, start the animation loop
-</script><br />Ball << <a href='Ball.html'>Previous</a> <a href='Konva demo.html'>Next</a> >> Konva demo</div>
+    TCPKeepAlive yes
+    IdentitiesOnly yes
+</pre>
+<p></p><br />代理主機設定 << <a href='代理主機設定.html'>Previous</a> <a href='C-K and future job.html'>Next</a> >> C-K and future job</div>
         
     <!-- footer -->
       <div class="container">

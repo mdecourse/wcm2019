@@ -41,6 +41,83 @@
 <h4>其他相關資料</h4>
 <p><a href="/downloads/五專優先免試入學辦理現況與建議.pdf">五專優先免試入學辦理現況與建議.pdf</a></p>
 <p><a href="/downloads/五專恢復招生弊多於利－以機械科系為例.pdf">五專恢復招生弊多於利－以機械科系為例.pdf</a></p>
+<p></p><h2>代理主機設定</h2>
+<p>在電腦輔助設計室中, 不經過代理主機的連線速度約為 162 KB/s, 而且無法完成下載 Google Drive 上的檔案.</p>
+<p>162000 B/s</p>
+<p><img caption="false" height="280" src="/images/no_proxy.png" width="742"/></p>
+<p>使用電腦輔助設計室中的虛擬主機作為代理, 連線速度為 5.4 MB/s 可以完成下載.</p>
+<p>5400000 B/s = 162000 * 5400/162 速度為 30 倍以上.</p>
+<p>因此若使用同群虛擬代理主機 1 分鐘下載的時間, 不使用 proxy 可能需要 30 分鐘以上.</p>
+<p><img caption="false" height="204" src="/images/proxy4.png" width="726"/></p>
+<p>若使用外部虛擬主機作為代理, 則速度又是同群代理的約 4 倍速度.</p>
+<p>因此若外部代理 1 分鐘下載時間, 同群代理需要 4 分鐘, 不使用 proxy 可能需要 兩個小時以上.</p>
+<p>使用外部虛擬主機作為代理, 理論的<span style="background-color: #ffff00;">連線速度可能高達 120 倍</span>.</p>
+<p><img caption="false" height="218" src="/images/proxy3.png" width="735"/></p><h2>Github 連線</h2>
+<p>在近端連線 Github 時可以採用 https 與 SSH 等兩種模式, 採 https 連線, 設定位於 y:\home\.gitconfig, 而採 SSH 連線時, 則設定檔案位於 y:\home\.ssh\config</p>
+<p>參考用的 y:\home\.gitconfig</p>
+<pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false">[user]
+	email = mdecourse@gmail.com
+	name = mdecourse
+#[http]
+	#proxy = http://mdeuser:mdeuser@192.168.1.1:3128
+[merge]
+	tool = kdiff3
+[mergetool "kdiff3"]
+	path = Y:/KDiff3/kdiff3.exe
+[pull]
+	rebase = false
+[fetch]
+	prune = false
+[rebase]
+	autoStash = false
+[diff]
+	guitool = kdiff3
+[difftool "kdiff3"]
+	path = Y:/KDiff3/kdiff3.exe
+[core]
+	editor = \"Y:/GitExtensions/GitExtensions.exe\" fileeditor
+</pre>
+<p></p>
+<p>參考用的 y:\home\.ssh\config</p>
+<pre class="brush:html;auto-links:false;toolbar:false" contenteditable="false"># no proxy at home
+ProxyCommand y:/PortableGit/mingw64/bin/connect.exe -H your_proxy:3128 %h %p
+
+# for mdecourse
+# url = git@github.com_mdecourse:mdecourse/cmstest.git
+Host github.com_mdecourse
+    User git
+    Port 22
+    Hostname github.com
+
+    IdentityFile "y:\home\.ssh\id_rsa_mdecourse"
+
+    TCPKeepAlive yes
+    IdentitiesOnly yes
+    
+# for scrum-1
+# url = git@github.com_scrum-1:scrum-1/cd2019.git
+Host github.com_scrum-1
+    User git
+    Port 22
+    Hostname github.com
+
+    IdentityFile "y:\home\.ssh\id_rsa_scrum-1"
+
+    TCPKeepAlive yes
+    IdentitiesOnly yes
+    
+# for scrum-2
+# url = git@github.com_scrum-2:scrum-2/cd2019b.git
+Host github.com_scrum-2
+    User git
+    Port 22
+    Hostname github.com
+
+    IdentityFile "y:\home\.ssh\id_rsa_scrum-2"
+
+    TCPKeepAlive yes
+    IdentitiesOnly yes
+</pre>
 <p></p><h2>C-K and future job</h2>
 <h4>Concept-Knowledge Design Theory (概念-知識設計理論)</h4>
 <p>C-K theory: <a href="/downloads/The C-K theory_ a model for creativity - Paris Innovation Review.pdf">1</a>, <a href="/downloads/C-K theory_modelling creative thinking and its impact on research.pdf">2</a>, <a href="/downloads/The Engineering Design CK Theory_Contributions and Limits.pdf">3</a>, <a href="/downloads/C-K Theory in Practice_ Lessons from Industrial Applications.pdf">4</a></p>
