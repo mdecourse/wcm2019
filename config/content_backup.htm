@@ -3,6 +3,7 @@
 <p>倉儲: <a href="https://github.com/mdecourse/wcm2019">https://github.com/mdecourse/wcm2019</a></p>
 <p>靜態網頁: <a href="https://mde.tw/wcm2019">https://mde.tw/wcm2019</a> </p>
 <p>動態網頁: <a href="https://wcm2019.herokuapp.com">https://wcm2019.herokuapp.com</a> </p>
+<p><img alt="" height="578" src="/images/wcm.png" width="600"/></p>
 <h4>電腦輔助設計室與協同設計室行事曆</h4>
 <p><a href="https://calendar.google.com/calendar/embed?src=mde.nfu.edu.tw_3439313938333136353439%40resource.calendar.google.com&amp;ctz=Asia%2FTaipei&amp;mode=week&amp;src=mde.nfu.edu.tw_35303530373431313438%40resource.calendar.google.com&amp;ctz=Asia%2FTaipei">全頁檢視</a></p>
 <p><iframe height="600" src="https://calendar.google.com/calendar/embed?src=mde.nfu.edu.tw_3439313938333136353439%40resource.calendar.google.com&amp;ctz=Asia%2FTaipei&amp;mode=week&amp;src=mde.nfu.edu.tw_35303530373431313438%40resource.calendar.google.com&amp;ctz=Asia%2FTaipei" width="800"></iframe></p>
@@ -77,6 +78,47 @@
 [core]
 	editor = \"Y:/GitExtensions/GitExtensions.exe\" fileeditor
 </pre>
+<p></p>
+<p>參考用的 y:\home\.ssh\config</p>
+<pre class="brush:html;auto-links:false;toolbar:false" contenteditable="false"># no proxy at home
+ProxyCommand y:/PortableGit/mingw64/bin/connect.exe -H your_proxy:3128 %h %p
+
+# for mdecourse
+# url = git@github.com_mdecourse:mdecourse/cmstest.git
+Host github.com_mdecourse
+    User git
+    Port 22
+    Hostname github.com
+
+    IdentityFile "y:\home\.ssh\id_rsa_mdecourse"
+
+    TCPKeepAlive yes
+    IdentitiesOnly yes
+    
+# for scrum-1
+# url = git@github.com_scrum-1:scrum-1/cd2019.git
+Host github.com_scrum-1
+    User git
+    Port 22
+    Hostname github.com
+
+    IdentityFile "y:\home\.ssh\id_rsa_scrum-1"
+
+    TCPKeepAlive yes
+    IdentitiesOnly yes
+    
+# for scrum-2
+# url = git@github.com_scrum-2:scrum-2/cd2019b.git
+Host github.com_scrum-2
+    User git
+    Port 22
+    Hostname github.com
+
+    IdentityFile "y:\home\.ssh\id_rsa_scrum-2"
+
+    TCPKeepAlive yes
+    IdentitiesOnly yes
+</pre>
 <p></p><h2>C-K and future job</h2>
 <h4>Concept-Knowledge Design Theory (概念-知識設計理論)</h4>
 <p>C-K theory: <a href="/downloads/The C-K theory_ a model for creativity - Paris Innovation Review.pdf">1</a>, <a href="/downloads/C-K theory_modelling creative thinking and its impact on research.pdf">2</a>, <a href="/downloads/The Engineering Design CK Theory_Contributions and Limits.pdf">3</a>, <a href="/downloads/C-K Theory in Practice_ Lessons from Industrial Applications.pdf">4</a></p>
@@ -110,6 +152,13 @@
 <p>However, to unlock this positive vision, workers will need to have the appropriate skills enabling them to thrive in the workplace of the future and the ability to continue to retrain throughout their lives. Crafting a sound in-company lifelong learning system, investing in human capital and collaborating with other stakeholders on workforce strategy should thus be key business imperatives, critical to companies’ medium to long-term growth, as well as an important contribution to society and social stability. A mindset of agile learning will also be needed on the part of workers as they shift from the routines and limits of today’s jobs to new, previously unimagined futures.</p>
 <p>Finally, policy-makers, regulators and educators will need to play a fundamental role in helping those who are displaced repurpose their skills or retrain to acquire new skills and to invest heavily in the development of new agile learners in future workforces by tackling improvements to education and training systems, as well as updating labour policy to match the realities of the Fourth Industrial Revolution.</p>
 <hr/><h2>計算機程式</h2>
+<p>機械設計工程系 KMOLab 相關課程規劃流程圖:</p>
+<h4>計算機程式課程規劃:</h4>
+<p><img alt="" height="709" src="/images/cp.png" width="600"/></p>
+<h4>電腦輔助設計實習課程規劃:</h4>
+<p><img alt="" height="702" src="/images/cad.png" width="600"/></p>
+<h4>協同產品設計實習課程規劃:</h4>
+<p><img alt="" height="723" src="/images/cd.png" width="600"/></p>
 <p><a href="http://solvespace.com">Solvespace</a> 以 C++ 編寫, 是一套 CAD單機程式套件.</p>
 <p><a href="https://github.com/xibyte/jsketcher">Jsketcher</a> 以 Javascript 編寫, 是一套的網際前端 (Front-end) CAD 程式套件.</p>
 <p><a href="https://github.com/Range-Software/range3">Range Software3</a> 以 C++ 編寫, 是一套 CAE 單機程式套件.</p>
